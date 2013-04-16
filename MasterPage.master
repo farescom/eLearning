@@ -50,14 +50,17 @@
                                     <td>
                                         <table cellpadding="0">
                                             <tr>
+                                                <td rowspan="3" style="color:Red; width: 120px; align: left;">
+                                                    <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                                </td>
                                                 <td align="left">
                                                     <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name:</asp:Label>
                                                 </td>
                                                 <td align="left">
                                                     <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
+                                                
                                                 </td>
-                                                <td align="left" style="color:Red;">
-                                                    <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                                <td align="left">
                                                 </td>
                                             </tr>
                                             <tr>
@@ -79,12 +82,8 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td id="remember">
+                                                <td id="remember" colspan="3">
                                                     <asp:CheckBox ID="RememberMe" runat="server" Text="Remember me next time." />
-                                                </td>
-                                                <td>
-                                                </td>
-                                                <td>
                                                 </td>
                                             </tr>
                                         </table>
