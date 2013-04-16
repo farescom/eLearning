@@ -1,0 +1,184 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+
+    <title>E-Learning platform</title>
+
+    <link rel="stylesheet" href="css/reset.css" type="text/css"/>
+    <link rel="stylesheet" href="css/layout.css" type="text/css"/>
+    <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-1.5.2.js" ></script>
+    <script type="text/javascript" src="js/cufon-yui.js"></script>
+    <script type="text/javascript" src="js/cufon-replace.js"></script>
+    <script type="text/javascript" src="js/Molengo_400.font.js"></script>
+    <script type="text/javascript" src="js/Expletus_Sans_400.font.js"></script> 
+    
+    <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+</head>
+
+<!-- aspnet_regsql -->
+
+<body id="<%header_shape();%>">
+
+
+<form id="form2" runat="server">
+
+    <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+
+    <div class="body1">
+        <div class="main">
+        <header>
+            <div class="wrapper">
+
+                <nav>
+                    <ul id="menu">
+                        <%display_menu();%>
+                    </ul>
+                </nav>
+
+                <asp:LoginView ID="LoginView2" runat="server">
+                <AnonymousTemplate>
+                    <div id="login" class="<%login_apperance();%>">
+                    <asp:Login ID="Login1" runat="server" DestinationPageUrl="user/Default.aspx">
+                        <LayoutTemplate>
+                            <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
+                                <tr>
+                                    <td>
+                                        <table cellpadding="0">
+                                            <tr>
+                                                <td align="left">
+                                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name:</asp:Label>
+                                                </td>
+                                                <td align="left">
+                                                    <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
+                                                </td>
+                                                <td align="left" style="color:Red;">
+                                                    <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left">
+                                                    <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
+                                                    <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" 
+                                                        ControlToValidate="UserName" ErrorMessage="User Name is required." 
+                                                        ToolTip="User Name is required." ValidationGroup="ctl00$Login1">*</asp:RequiredFieldValidator>
+                                                </td>
+                                                <td align="left">
+                                                    <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                                    <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" 
+                                                        ControlToValidate="Password" ErrorMessage="Password is required." 
+                                                        ToolTip="Password is required." ValidationGroup="ctl00$Login1">*</asp:RequiredFieldValidator>
+                                                </td>
+                                                <td align="left">
+                                                    <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" 
+                                                        ValidationGroup="ctl00$Login1" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td id="remember">
+                                                    <asp:CheckBox ID="RememberMe" runat="server" Text="Remember me next time." />
+                                                </td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </LayoutTemplate>
+                     </asp:Login>
+                    </div>
+
+                </div>
+            </AnonymousTemplate>
+            <LoggedInTemplate>
+                <div id="logout">
+                    <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
+                </div>
+            </LoggedInTemplate>
+            </asp:LoginView>
+
+            <div class="wrapper">
+
+            <h1><a href="Default.aspx" id="logo">E-Learning platfrom</a></h1>
+            </div>
+            <div id="slogan"> Web Engineering<span>Welcome to the world of ASP.NET!</span> </div>
+
+            <%header_banners();%>
+
+            <div id="sitepath" class="<%path_apperance();%>">
+                Site path: 
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=" >> " NodeStyle-ForeColor="#0000BB">
+                </asp:SiteMapPath> 
+            </div>
+        </header>
+        </div>
+    </div>
+
+    <div class="body2">
+      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
+      <div class="main">
+        
+        <section id="content">
+          <div class="box1">
+            <div class="wrapper">
+              <article class="col1">
+                <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+              </article>
+              <article class="col2 pad_left2">
+                <div class="pad_left1">
+                  <asp:LoginView ID="LoginView1" runat="server">
+                    <AnonymousTemplate>
+                        <h2>User login</h2>
+
+                        <asp:Login ID="Login2" runat="server"></asp:Login>
+
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+
+                        <h2>User panel</h2>
+                        Hello <asp:LoginName ID="LoginName2" runat="server"></asp:LoginName>
+                        <br />
+                        <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
+                        <p>some data from the profile</p>
+                        <p>link to change things on the profile</p>
+
+                        <h2>User statistics</h2>
+                        <p>some learning statistics</p>
+
+                    </LoggedInTemplate>
+                  </asp:LoginView>
+                        <h2>User Opinions</h2>
+                        <p>Quia voluptas sit aspernatur aut odit aut fugit, seduia consequuntur magni dolores eos qui ratione. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non.<br>
+                           numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <div class="wrapper">
+            <div class="pad1">
+              <div class="pad_left1">
+                <div class="wrapper">
+                  <article class="call"></article>
+                  <article class="col_4 pad_left2">Copyright &copy; <a href="#">Number System Course</a><br />All Rights Reserved<br></article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+</form>
+</body>
+</html>
