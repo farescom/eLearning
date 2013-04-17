@@ -4,11 +4,38 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Data;
+using System.Diagnostics;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        // Random opinion ----------------------------------------------------------------------------------------
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+        conn.Open();
+
+        SqlCommand command = new SqlCommand("SELECT count(*) FROM Ratings WHERE acceptance = 1", conn);
+        int count = (int)command.ExecuteScalar();
+        Debug.WriteLine(count);
+
+        Random rand = new Random();
+        int randomNumber = rand.Next(0, count);
+
+        command.CommandText = "SELECT ID FROM Ratings WHERE acceptance = 1";
+        SqlDataAdapter da = new SqlDataAdapter(command);
+        DataTable dt = new DataTable();
+        da.Fill(dt);
+
+        command.CommandText = String.Format("SELECT * FROM Ratings WHERE ID = {0}", dt.Rows[randomNumber][0]);
+        SqlDataReader reader = command.ExecuteReader();
+        reader.Read();
+
+        randOpinionDesc.InnerText = reader.GetString(4);
+        randOpinionAuthor.InnerText = reader.GetString(1);
+        // -------------------------------------------------------------------------------------------------------
     }
 
     // displays a menu containing only top-level item.
