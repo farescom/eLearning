@@ -146,7 +146,7 @@
                         Hello <asp:LoginName ID="LoginName2" runat="server"></asp:LoginName>
                         <br />
                         <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
-                        <p>some data from the profile</p>
+                        <p id="UserInfo" runat="server"></p>
                         <p>link to change things on the profile</p>
 
                         <h2>User statistics</h2>
@@ -156,8 +156,8 @@
                   </asp:LoginView>
                         <h2>User Opinions</h2>
                         <p id="randomOpinion" runat="server">
-                            <p id="randOpinionDesc" runat="server"></p>
-                            <p id="randOpinionAuthor" runat="server"></p>
+                            <div id="RandOpinionDesc" runat="server"></div>
+                            <div id="RandOpinionAuthor" runat="server"></div>
                         </p>
                 </div>  
               </article>
