@@ -41,15 +41,16 @@ public partial class MasterPage : System.Web.UI.MasterPage
             // -------------------------------------------------------------------------------------------------------
 
             // User Info ----------------------------------------------------------------------------------------
-            //command.CommandText = String.Format("SELECT * FROM Users WHERE username = {0}", LoginName);
-            //reader = command.ExecuteReader();
-            //reader.Read();
+            if (HttpContext.Current.User.Identity.Name != null)
+            {
+                command.CommandText = String.Format("SELECT * FROM Users WHERE username = {0}", HttpContext.Current.User.Identity.Name);
+                reader = command.ExecuteReader();
+                reader.Read();
 
-
-            //LoginName name = (LoginName)LoginView1.FindControl("LoginName2");
-            //name.
-            //LoginView1.LoggedInTemplate.
-	        Debug.WriteLine(LoginView1.FindControl("UserInfo").ClientID);`
+                //LoginName name = (LoginName)LoginView1.FindControl("LoginName2");
+                //name.
+                //LoginView1.LoggedInTemplate.
+                Debug.WriteLine(LoginView1.FindControl("UserInfo").ClientID);
             }
             
             // -------------------------------------------------------------------------------------------------------
