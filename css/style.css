@@ -548,3 +548,13 @@ footer a:hover {
 {
     color: #999999;
 }
+
+#RandOpinionDesc
+{
+    font-style: italic;    
+}
+#RandOpinionAuthor
+{
+    text-align: right;
+    margin-right: 20px;   
+}
