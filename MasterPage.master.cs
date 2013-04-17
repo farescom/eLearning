@@ -49,7 +49,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             //LoginName name = (LoginName)LoginView1.FindControl("LoginName2");
             //name.
             //LoginView1.LoggedInTemplate.
-	    Debug.WriteLine(LoginView1.FindControl("UserInfo").ClientID);`
+	        Debug.WriteLine(LoginView1.FindControl("UserInfo").ClientID);`
             }
             
             // -------------------------------------------------------------------------------------------------------
