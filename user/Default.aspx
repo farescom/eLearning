@@ -14,7 +14,7 @@
         <h2 class="red">Let's start!</h2>
 
         <p class="blue">Here we will have the four sections, so be prepared for this!!</p>
-        <p class="green">Reserved for Kubi. </p>
+        <p class="green">Reserved for Kubi.</p>
 
     </div>
 </asp:Content>
