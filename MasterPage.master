@@ -147,7 +147,7 @@
                         <br />
                         <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
                         <p id="UserInfo" runat="server"></p>
-                        <p>link to change things on the profile</p>
+                        <a href="profile.aspx">Change my profile</a>
 
                         <h2>User statistics</h2>
                         <p>some learning statistics</p>
