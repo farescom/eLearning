@@ -156,8 +156,7 @@
                   </asp:LoginView>
                         <h2>User Opinions</h2>
                         <p id="randomOpinion" runat="server">
-                            <div id="RandOpinionDesc" runat="server"></div>
-                            <div id="RandOpinionAuthor" runat="server"></div>
+                            ŁKS
                         </p>
                 </div>  
               </article>
