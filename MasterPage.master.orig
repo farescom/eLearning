@@ -156,9 +156,13 @@
                   </asp:LoginView>
                         <h2>User Opinions</h2>
                         <p id="randomOpinion" runat="server">
-                            <div id="RandOpinionDesc" runat="server"></div>
-                            <div id="RandOpinionAuthor" runat="server"></div>
+<<<<<<< HEAD
+                            WIDZEW2
+=======
+                            WIDZEW1
+>>>>>>> ff32936bd05734a8b6cbdb233b9f4ea0fb482a32
                         </p>
+                        ŁÓDŹ
                 </div>  
               </article>
             </div>
