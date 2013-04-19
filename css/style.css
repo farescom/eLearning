@@ -75,7 +75,7 @@ h2 {
 	color:#000;
 	text-transform:uppercase;
 	line-height:1.2em;
-	padding:31px 0 20px 0;
+	padding:20px 0 20px 0;  /*31px*/
 	letter-spacing:-1px
 }
 h2 span {
@@ -501,10 +501,16 @@ footer a:hover {
     visibility:hidden;
 }
 
-.white-blue
+.white-blue, #login2 td input
 {
-    background: #3CD0EA;
+    background: #CCCCCC;
 }
+
+.white-blue, #login2 td.color input
+{
+    background: #ACF0FA;
+}
+
 
 #iconss
 {
@@ -549,12 +555,45 @@ footer a:hover {
     color: #999999;
 }
 
-#RandOpinionDesc
+#login2
 {
-    font-style: italic;    
+    border: 1px dotted blue;
+    padding: 0px 5px 5px 20px;
+    margin-top: 10px;
+    /*background: #3CD0EA;*/
 }
-#RandOpinionAuthor
+
+.box
 {
-    text-align: right;
-    margin-right: 20px;   
+    border: 1px dotted blue;
+    padding: 0px 5px 5px 20px;
+    margin-top: 10px;
+}
+
+.registration
+{
+    font-size: 12px;
+    margin: 5px;
+    /*margin: 0px 5px 0px 5px;*/
+}
+
+.grey
+{
+    background: #DDDDDD;
+    padding: 5px;
+    margin: 5px;
+}
+
+.white_grey
+{
+    background: #EEEEEE;
+    padding: 5px;
+    margin: 5px;
+}
+
+.white
+{
+    background: #FFFFFF;
+    padding: 5px;
+    margin: 5px;
 }

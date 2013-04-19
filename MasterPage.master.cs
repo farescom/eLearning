@@ -23,35 +23,40 @@ public partial class MasterPage : System.Web.UI.MasterPage
             SqlCommand command = new SqlCommand("SELECT count(*) FROM Ratings WHERE acceptance = 1", conn);
             int count = (int)command.ExecuteScalar();
 
-            Random rand = new Random();
-            int randomNumber = rand.Next(0, count);
+            if (count != 0)
+            {
+                Random rand = new Random();
+                int randomNumber = rand.Next(0, count);
 
-            command.CommandText = "SELECT ID FROM Ratings WHERE acceptance = 1";
-            SqlDataAdapter da = new SqlDataAdapter(command);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
+                command.CommandText = "SELECT ID FROM Ratings WHERE acceptance = 1";
+                SqlDataAdapter da = new SqlDataAdapter(command);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
-            command.CommandText = String.Format("SELECT * FROM Ratings WHERE ID = {0}", dt.Rows[randomNumber][0]);
-            SqlDataReader reader = command.ExecuteReader();
-            reader.Read();
+                command.CommandText = String.Format("SELECT * FROM Ratings WHERE ID = {0}", dt.Rows[randomNumber][0]);
+                SqlDataReader reader = command.ExecuteReader();
+                reader.Read();
 
-            RandOpinionDesc.InnerText = reader.GetString(4);
-            RandOpinionAuthor.InnerText = reader.GetString(1);
-            reader.Close();
+                RandOpinionDesc.InnerText = reader.GetString(4);
+                RandOpinionAuthor.InnerText = reader.GetString(1);
+                reader.Close();
+            }
+            else RandOpinionDesc.InnerText = "Brak opini";
+            
             // -------------------------------------------------------------------------------------------------------
 
             // User Info ----------------------------------------------------------------------------------------
-            if (HttpContext.Current.User.Identity.Name != null)
-            {
-                command.CommandText = String.Format("SELECT * FROM Users WHERE username = {0}", HttpContext.Current.User.Identity.Name);
-                reader = command.ExecuteReader();
-                reader.Read();
+            //if (HttpContext.Current.User.Identity.Name != null)
+            //{
+            //    command.CommandText = String.Format("SELECT * FROM Users WHERE username = {0}", HttpContext.Current.User.Identity.Name);
+            //    reader = command.ExecuteReader();
+            //    reader.Read();
 
-                //LoginName name = (LoginName)LoginView1.FindControl("LoginName2");
-                //name.
-                //LoginView1.LoggedInTemplate.
-                Debug.WriteLine(LoginView1.FindControl("UserInfo").ClientID);
-            }
+            //    //LoginName name = (LoginName)LoginView1.FindControl("LoginName2");
+            //    //name.
+            //    //LoginView1.LoggedInTemplate.
+            //    Debug.WriteLine(LoginView1.FindControl("UserInfo").ClientID);
+            //}
             
             // -------------------------------------------------------------------------------------------------------
 
