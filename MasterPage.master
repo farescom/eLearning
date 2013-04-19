@@ -156,7 +156,7 @@
                   </asp:LoginView>
                         <h2>User Opinions</h2>
                         <p id="randomOpinion" runat="server">
-                            WIDZEW
+                            WIDZEW1
                         </p>
                         ŁÓDŹ
                 </div>  
