@@ -597,3 +597,19 @@ footer a:hover {
     padding: 5px;
     margin: 5px;
 }
+
+.RandOpinionDesc
+{
+    font-style: italic;
+    font-size: 14pt;
+    margin-top: 30px;
+    margin-bottom: 5px;
+}
+.RandOpinionDesc:first-child
+{
+    margin-top: 5px;
+}
+.RandOpinionAuthor:last-child
+{
+    margin-bottom: 20px;
+}

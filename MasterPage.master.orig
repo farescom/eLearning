@@ -1,7 +1,4 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
-
-<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
-    Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -26,7 +23,6 @@
 <!-- aspnet_regsql -->
 
 <body id="<%header_shape();%>">
-
 
 <form id="form2" runat="server">
 
@@ -200,7 +196,6 @@
 
                         </div>
                     </AnonymousTemplate>
-                    
 
                     <LoggedInTemplate>
                         <div class="box">
@@ -214,20 +209,8 @@
                         <br />
                         <div class="box">
                             <h2>User statistics</h2>
-                        <p>
-                            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" 
-                                onload="Chart1_Load">
-                                <Series>
-                                    <asp:Series ChartType="Pie" Name="Series1">
-                                    </asp:Series>
-                                </Series>
-                                <ChartAreas>
-                                    <asp:ChartArea Name="ChartArea1">
-                                    </asp:ChartArea>
-                                </ChartAreas>
-                            </asp:Chart>
-                        </p>
-
+                            <p>some learning statistics</p>
+                        </div>
                     </LoggedInTemplate>
                   </asp:LoginView>
 
@@ -235,9 +218,16 @@
 
                   <div class="box">
                         <h2>User Opinions</h2>
+<<<<<<< HEAD
                         <span id="randomOpinions" runat="server"></span>
+=======
+                        <p id="randomOpinion" runat="server">
+                            <div id="RandOpinionDesc" runat="server"></div>
+                            <div id="RandOpinionAuthor" runat="server"></div>
+                        </p>
                   </div>
 
+>>>>>>> c2e044281931b2fada6aa1e02a9906a1b4fc0fb4
                 </div>  
               </article>
             </div>
