@@ -104,8 +104,7 @@
             </asp:LoginView>
 
             <div class="wrapper">
-
-            <h1><a href="Default.aspx" id="logo">E-Learning platfrom</a></h1>
+                <h1><a href="Default.aspx" id="logo">E-Learning platfrom</a></h1>
             </div>
             <div id="slogan"> Web Engineering<span>Welcome to the world of ASP.NET!</span> </div>
 
@@ -124,38 +123,106 @@
       <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
       <div class="main">
         
+ <div class="body2">
+      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
+      <div class="main">
+        
         <section id="content">
           <div class="box1">
             <div class="wrapper">
+
+              <!-- left side: the content -->
               <article class="col1">
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
               </article>
+
+              <!-- right side: the columns with login, user and opinions panels -->
               <article class="col2 pad_left2">
                 <div class="pad_left1">
                   <asp:LoginView ID="LoginView1" runat="server">
                     <AnonymousTemplate>
+                        <div id="login2">
                         <h2>User login</h2>
+                            <asp:Login ID="Login3" runat="server">
+                                <LayoutTemplate>
+                                    <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
+                                    <tr>
+                                    <td>
+                                    <table cellpadding="0">
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">User Name:</asp:Label>
+                                            </td>
+                                            <td class="color">
+                                                <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" 
+                                                    ControlToValidate="UserName" ErrorMessage="User Name is required." 
+                                                    ToolTip="User Name is required." ValidationGroup="ctl00$ctl02$Login3">*</asp:RequiredFieldValidator>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
+                                            </td>
+                                            <td class="color">
+                                                <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" 
+                                                    ControlToValidate="Password" ErrorMessage="Password is required." 
+                                                    ToolTip="Password is required." ValidationGroup="ctl00$ctl02$Login3">*</asp:RequiredFieldValidator>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                            <asp:CheckBox ID="RememberMe" runat="server" Text="Remember me next time." />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="color:Red; width: 120px; align: left;" colspan="2">
+                                               <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" 
+                                                    ValidationGroup="ctl00$ctl02$Login3" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </td>
+                                    </tr>
+                                    </table>
+                                </LayoutTemplate>
+                            </asp:Login>
 
-                        <asp:Login ID="Login2" runat="server"></asp:Login>
-
+                        </div>
                     </AnonymousTemplate>
+                    
+
                     <LoggedInTemplate>
-
-                        <h2>User panel</h2>
-                        Hello <asp:LoginName ID="LoginName2" runat="server"></asp:LoginName>
+                        <div class="box">
+                            <h2>User panel</h2>
+                            Hello <asp:LoginName ID="LoginName2" runat="server"></asp:LoginName>
+                            <br />
+                            <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
+                            <p id="UserInfo" runat="server"></p>
+                            <a href="profile.aspx">Change my profile</a>
+                        </div>
                         <br />
-                        <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
-                        <p id="UserInfo" runat="server"></p>
-                        <a href="profile.aspx">Change my profile</a>
-
-                        <h2>User statistics</h2>
-                        <p>some learning statistics</p>
-
+                        <div class="box">
+                            <h2>User statistics</h2>
+                            <p>some learning statistics</p>
+                        </div>
                     </LoggedInTemplate>
                   </asp:LoginView>
+
+                  <br />
+
+                  <div class="box">
                         <h2>User Opinions</h2>
                         <span id="randomOpinions" runat="server"></span>
+                  </div>
+
                 </div>  
               </article>
             </div>
