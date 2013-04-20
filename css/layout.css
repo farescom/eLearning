@@ -32,6 +32,7 @@
 	width:75px;
 	float:left
 }
+
 /* index.html */
 #page1 {
 	background:url(../images/bg_top1.jpg) top repeat-x #fff
@@ -39,9 +40,16 @@
 #page1 header {
 	height:641px
 }
+
+
 #page1 .body1 {
 	background:url(../images/bg_top_img1.jpg) top center no-repeat
 }
+
+<div id="page1">
+    <div id="slogan"></div>
+</div>
+
 #page1 #slogan {
 	background:url(../images/line_top1.gif) 0 0 no-repeat
 }

@@ -18,7 +18,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
         {
             conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             conn.Open();
-
+            Chart1_Load(conn);
             // Random opinion ----------------------------------------------------------------------------------------
             SqlCommand command = new SqlCommand("SELECT count(*) FROM Ratings WHERE acceptance = 1", conn);
             int count = (int)command.ExecuteScalar();
@@ -131,5 +131,13 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 "<li><a href=\"contact.aspx\"><img src=\"images/contact.jpg\" alt=\"\"></a></li>" +
                 "</ul>");
         }
+    }
+    protected void Chart1_Load(SqlConnection conn)
+    {
+        SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections", conn);
+        int sections = (int)command1.ExecuteScalar();
+
+        SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
+        int doneSections = (int)command2.ExecuteScalar();
     }
 }
