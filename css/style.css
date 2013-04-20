@@ -609,3 +609,7 @@ footer a:hover {
 {
     margin-top: 5px;
 }
+.RandOpinionAuthor:last-child
+{
+    margin-bottom: 20px;
+}
