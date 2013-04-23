@@ -1,8 +1,9 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
     Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -29,7 +30,7 @@
 
 
 <form id="form2" runat="server">
-
+<asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnablePartialRendering="true"></asp:ToolkitScriptManager>
     <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
 
     <div class="body1">
@@ -215,10 +216,10 @@
                         <div class="box">
                             <h2>User statistics</h2>
                         <p>
-                            <asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSource1" 
-                                onload="Chart1_Load">
+                            <asp:Chart ID="Chart1" runat="server" 
+                                onload="Chart1_Load" Height="220px" Width="220px">
                                 <Series>
-                                    <asp:Series ChartType="Pie" Name="Series1">
+                                    <asp:Series ChartType="Pie" Name="Default">
                                     </asp:Series>
                                 </Series>
                                 <ChartAreas>
