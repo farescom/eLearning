@@ -7,11 +7,13 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
+using System.Web.UI.DataVisualization.Charting;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
         //Connection to databse
         SqlConnection conn;
         using(conn = new SqlConnection())
@@ -132,5 +134,28 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 "<li><a href=\"contact.aspx\"><img src=\"images/contact.jpg\" alt=\"\"></a></li>" +
                 "</ul>");
         }
+    }
+    protected void Chart1_Load(object sender, EventArgs e)
+    {
+        SqlConnection conn;
+        using (conn = new SqlConnection())
+        {
+
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            conn.Open();
+            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections", conn);
+            int sections = (int)command1.ExecuteScalar();
+
+            SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
+            int doneSections = (int)command2.ExecuteScalar();
+
+            int[] yValues = { 2, 1};
+            string[] xValues = { "All sections", "Done sections"};
+            ((Chart)(LoginView1.FindControl("Chart1"))).Series["Default"].Points.DataBindXY(xValues, yValues);
+
+            //LoginView1.FindControl("Chart1");.Series["Default"].Points[0].Color = Color.MediumSeaGreen;
+            //LoginView1.FindControl("Chart1");.Series["Default"].Points[1].Color = Color.PaleGreen;
+        }
+
     }
 }
