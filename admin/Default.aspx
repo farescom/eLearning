@@ -7,38 +7,28 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
-    <div class="pad_left1" width="980px">
+    <div class="pad_left1">
         
         <!-- GridView controls display data as rows and columns. 
              This GridView was setup and customized in "Design View" 
         -->
-        <asp:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" Width="980px">
+        <asp:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0">
             <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Users">
                 <ContentTemplate>
                     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
                         DataSourceID="SqlDataSource1" BackColor="White" BorderColor="#3366CC" 
-                        BorderStyle="None" BorderWidth="1px" CellPadding="0" CellSpacing="0"
-                        OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" Width="980px" DataKeyNames="ID"> 
+                        BorderStyle="None" BorderWidth="1px" CellPadding="4"> 
                         <Columns>
-                            <asp:BoundField DataField="firstname" HeaderText="Firstname" SortExpression="firstname" HeaderStyle-Width="10%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="surname" HeaderText="Surname" SortExpression="surname" HeaderStyle-Width="10%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="sex" HeaderText="Sex" SortExpression="sex" HeaderStyle-Width="3%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            
-                            <asp:TemplateField HeaderText="Birthday" SortExpression="birthday" ItemStyle-HorizontalAlign="center">
-                                <ItemTemplate>
-                                    <%# Eval("birthday").ToString().Substring(0, 10) %>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:textbox id="BirthdayTextBox" text='<%# Eval("birthday").ToString().Substring(0, 10) %>' width="90" runat="server"/>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
-
-                            <asp:BoundField DataField="country" HeaderText="Country" SortExpression="country" HeaderStyle-Width="9%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="city" HeaderText="City" SortExpression="city" HeaderStyle-Width="11%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="postcode" HeaderText="Postcode" SortExpression="postcode" HeaderStyle-Width="9%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="address" HeaderText="Address" SortExpression="address" HeaderStyle-Width="20%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:BoundField DataField="jump_posibility" HeaderText="Jump" SortExpression="jump_posibility" HeaderStyle-Width="3%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center" />
-                            <asp:CommandField ShowDeleteButton="True" ShowEditButton="True" />
+                            <asp:BoundField DataField="firstname" HeaderText="Firstname" SortExpression="firstname" />
+                            <asp:BoundField DataField="surname" HeaderText="Surname" SortExpression="surname" />
+                            <asp:BoundField DataField="sex" HeaderText="Sex" SortExpression="sex" />
+                            <asp:BoundField DataField="birthday" HeaderText="Birthday" SortExpression="birthday" />
+                            <asp:BoundField DataField="country" HeaderText="Country" SortExpression="country" />
+                            <asp:BoundField DataField="city" HeaderText="City" SortExpression="city" />
+                            <asp:BoundField DataField="postcode" HeaderText="Postcode" SortExpression="postcode" />
+                            <asp:BoundField DataField="address" HeaderText="Address" SortExpression="address" />
+                            <asp:BoundField DataField="jump_posibility" HeaderText="Jump possibility" SortExpression="jump_posibility" />
+                            <asp:BoundField DataField="code_id" HeaderText="Code id" SortExpression="code_id" />
                         </Columns>
                         <FooterStyle BackColor="#99CCCC" ForeColor="#003399" />
                         <HeaderStyle BackColor="#003399" Font-Bold="True" ForeColor="#CCCCFF" />
@@ -49,7 +39,6 @@
                         <SortedAscendingHeaderStyle BackColor="#0D4AC4" />
                         <SortedDescendingCellStyle BackColor="#D6DFDF" />
                         <SortedDescendingHeaderStyle BackColor="#002876" />
-                        <EditRowStyle Width="911px" Wrap="True" />
                     </asp:GridView>
                 </ContentTemplate>
             </asp:TabPanel>
@@ -222,11 +211,9 @@
         </asp:TabContainer>
 
         <!-- SQL statement that retrieves all bookings from the database. Also created in "Design View" -->
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server"
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
             ConnectionString="<%$ connectionStrings:ConnectionString %>" 
-            SelectCommand="SELECT [ID], [firstname], [surname], [sex], [birthday], [country], [city], [postcode], [address], [jump_posibility], [code_id] FROM [Users]"
-            UpdateCommand="Update Users SET firstname=@firstname, surname=@surname, sex=@sex, birthday=@birthday, country=@country, city=@city, postcode=@postcode,
-                            address=@address, jump_posibility=@jump_posibility WHERE ID=@ID">
+            SelectCommand="SELECT [firstname], [surname], [sex], [birthday], [country], [city], [postcode], [address], [jump_posibility], [code_id] FROM [Users]">
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
             ConnectionString="<%$ connectionStrings:ConnectionString %>" 
@@ -256,6 +243,36 @@
             ConnectionString="<%$ connectionStrings:ConnectionString %>" 
             SelectCommand="SELECT [code], [valid] FROM [Codes]">
         </asp:SqlDataSource>
+       
+        <h2>Welcome on Number Systems Course</h2>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum."</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum."</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum."</p>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum."</p>
 
     </div>
 </asp:Content>
