@@ -30,12 +30,14 @@
 
 
 <form id="form2" runat="server">
-<asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnablePartialRendering="true"></asp:ToolkitScriptManager>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnablePartialRendering="true"></asp:ToolkitScriptManager>
     <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
 
     <div class="body1">
         <div class="main">
-        <header <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") != -1) Response.Write("style='height: 61px;'"); %>
+        <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) Response.Write("<header>");
+              else Response.Write("<header style='height: 61px;'>");
+                %>
             <div class="wrapper">
 
                 <nav>
@@ -135,17 +137,18 @@
       <div class="main">
         
         <section id="content">
-          <div class="box1" <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") != -1) Response.Write("style='padding: 0;'"); %> >
+           <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) Response.Write("<div class='box1'>");
+              else Response.Write("<div class='box1' style='padding: 0;'>");
+                %>
             <div class="wrapper">
 
-              <!-- left side: the content -->
+              <!-- left side: the content style='padding: 0;' -->
               <article class="col1" width="911px">
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
               </article>
 
-              <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1)
-                 { %>
+              <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) { %>
               <!-- right side: the columns with login, user and opinions panels -->
               <article class="col2 pad_left2">
                 <div class="pad_left1">
