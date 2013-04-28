@@ -120,14 +120,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Response.Write("box2");
     }
 
-    public void color_class()
-    {
-        if (SiteMap.CurrentNode != null)
-            Response.Write("box1");
-        else
-            Response.Write("box2");
-    }
-
     // decided whether it is a Default (main) page, or another page
     // Depending on the result of this function, the login box could be shown or not
     public void login_apperance()

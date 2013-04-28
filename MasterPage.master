@@ -4,7 +4,6 @@
     Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 
@@ -132,16 +131,9 @@
       <% if (SiteMap.CurrentNode != null && SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
       <div class="main">
         
- <div class="body2">
-      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
-      <div class="main">
-        
         <section id="content">
             
           <div class="<%color_class();%>">
-           <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) Response.Write("<div class='box1'>");
-              else Response.Write("<div class='box1' style='padding: 0;'>");
-                %>
             <div class="wrapper">
 
               <!-- left side: the content style='padding: 0;' -->
@@ -249,9 +241,6 @@
                             <span><b>Predicted date of completion:</b><br /><% Prediction(); %> </span>
                          </div>
 
-                            <h1>Predicted date of accomplishment: 
-                            <% Prediction(); %> </h1>
-                        </p>
                     </LoggedInTemplate>
                   </asp:LoginView>
 
