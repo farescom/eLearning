@@ -46,30 +46,45 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 {
                     Opinion opinion = new Opinion(dt.Rows[i][4].ToString(), dt.Rows[i][1].ToString());
                     randomOpinions.Controls.Add(opinion);
-                    //randomOpinions.InnerHtml += "<div class='RandOpinionDesc'><img style='' src='images/quot1.gif' />" + dt.Rows[i][4] + "<img style='margin-left: 15px;' src='images/quot1.gif' /></div>" +
-                    //    "<div class='RandOpinionAuthor'>" + dt.Rows[i][1] + "</div>";
-                    //randomOpinions.InnerHtml += "<div class='RandOpinionDesc'><asp:Image runat='server' ImageUrl='~/images/quot1.gif' />" + dt.Rows[i][4] + "<asp:Image runat='server' ImageUrl='~/images/quot1.gif' /></div>" +
-                    //    "<div class='RandOpinionAuthor'>" + dt.Rows[i][1] + "</div>";
                 }
             }
             else randomOpinions.InnerText = "Brak opini";
-            
-            // -------------------------------------------------------------------------------------------------------
 
-            // User Info ----------------------------------------------------------------------------------------
-            //if (HttpContext.Current.User.Identity.Name != null)
-            //{
-            //    command.CommandText = String.Format("SELECT * FROM Users WHERE username = {0}", HttpContext.Current.User.Identity.Name);
-            //    reader = command.ExecuteReader();
-            //    reader.Read();
+        }
+    }
 
-            //    //LoginName name = (LoginName)LoginView1.FindControl("LoginName2");
-            //    //name.
-            //    //LoginView1.LoggedInTemplate.
-            //    Debug.WriteLine(LoginView1.FindControl("UserInfo").ClientID);
-            //}
-            
-            // -------------------------------------------------------------------------------------------------------
+    public void show_coursename()
+    {
+        //Connection to databse
+        SqlConnection conn;
+        using (conn = new SqlConnection())
+        {
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            conn.Open();
+
+            // Random opinion ----------------------------------------------------------------------------------------
+            SqlCommand command = new SqlCommand("SELECT coursename FROM Settings", conn);
+            String coursename = (String)command.ExecuteScalar();
+
+            Response.Write(HttpUtility.HtmlDecode(coursename));
+
+        }
+    }
+
+    public void show_slogan()
+    {
+        //Connection to databse
+        SqlConnection conn;
+        using (conn = new SqlConnection())
+        {
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            conn.Open();
+
+            // Random opinion ----------------------------------------------------------------------------------------
+            SqlCommand command = new SqlCommand("SELECT slogan FROM Settings", conn);
+            String slogan = (String)command.ExecuteScalar();
+
+            Response.Write(HttpUtility.HtmlDecode(slogan));
 
         }
     }

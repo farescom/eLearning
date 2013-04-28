@@ -23,7 +23,7 @@
         <!-- GridView controls display data as rows and columns. 
              This GridView was setup and customized in "Design View" 
         -->
-        <asp:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" Width="980px">
+        <asp:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" Width="910px">
             <asp:TabPanel ID="TabPanel1" runat="server" HeaderText="Users">
                 <ContentTemplate>
                     <asp:GridView ID="GridView1" runat="Server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1"
@@ -161,7 +161,7 @@
                     CellPadding="0" ForeColor="Black" GridLines="Vertical" SkinID="RecordList" Width="100%"
                     ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="SettingsUpdating">
                     <Columns>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Coursename" HeaderStyle-Width="30%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Coursename" HeaderStyle-Width="25%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                         <ItemTemplate>
                             <%# Eval("coursename") %>
                         </ItemTemplate>
@@ -172,7 +172,7 @@
                             <asp:TextBox CssClass="widthTextBox" ID="txtCoursename" runat="Server"></asp:TextBox>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Slogan" HeaderStyle-Width="30%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Slogan" HeaderStyle-Width="25%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                         <ItemTemplate>
                             <%# Eval("slogan") %>
                         </ItemTemplate>
@@ -340,18 +340,18 @@
                     ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="SectionsUpdating"> 
                         <Columns>
                             <asp:CommandField ShowDeleteButton="True" />
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Title" HeaderStyle-Width="25%" FooterStyle-Width="25%" ControlStyle-Width="100%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Title" HeaderStyle-Width="20%" FooterStyle-Width="25%" ControlStyle-Width="100%">
                                 <ItemTemplate>
                                     <%# Eval("title") %>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="txtTitle" runat="Server" Text='<%# Eval("title") %>'></asp:TextBox>
+                                    <asp:TextBox ID="txtTitle" TextMode="MultiLine" Rows="2" runat="Server" Text='<%# Eval("title") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <FooterTemplate>
                                     <asp:TextBox ID="txtTitle" runat="Server"></asp:TextBox>
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Section content" HeaderStyle-Width="60%" FooterStyle-Width="60%" ControlStyle-Height="100%" ControlStyle-Width="90%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Section content" HeaderStyle-Width="63%" FooterStyle-Width="60%" ControlStyle-Height="100%" ControlStyle-Width="90%">
                                 <ItemTemplate>
                                     <%# Eval("section_content") %>
                                 </ItemTemplate>
@@ -463,7 +463,7 @@
                                     </asp:DropDownList>
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="60%" FooterStyle-Width="60%" ControlStyle-Width="100%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="5%" FooterStyle-Width="60%" ControlStyle-Width="100%">
                                 <ItemTemplate>
                                     <%# Eval("description") %>
                                 </ItemTemplate>
@@ -510,19 +510,19 @@
                     CellPadding="10" CellSpacing="10" ForeColor="Black" GridLines="Vertical" Width="100%"
                     ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="QuestionsUpdating"> 
                         <Columns>
-                            <asp:CommandField ShowDeleteButton="True" />
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="SectionID" HeaderStyle-Width="10%" FooterStyle-Width="10%" ControlStyle-Width="10%">
+                            <asp:CommandField ShowDeleteButton="True" DeleteText="Del" />
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center" HeaderText="SecID" HeaderStyle-Width="5%" FooterStyle-Width="10%" ControlStyle-Width="10%">
                                 <ItemTemplate>
                                     <%# Eval("section_id") %>
                                 </ItemTemplate>
                                 <EditItemTemplate>
-                                    <asp:TextBox ID="txtSectionID" runat="Server" Text='<%# Eval("section_id") %>'></asp:TextBox>
+                                    <asp:TextBox  ID="txtSectionID" runat="Server" Text='<%# Eval("section_id") %>'></asp:TextBox>
                                 </EditItemTemplate>
                                 <FooterTemplate>
                                     <asp:TextBox Width="30px" ID="txtSectionID" runat="Server"></asp:TextBox>
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Question" HeaderStyle-Width="30%" FooterStyle-Width="30%" ControlStyle-Width="80%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Question" HeaderStyle-Width="28%" FooterStyle-Width="30%" ControlStyle-Width="80%">
                                 <ItemTemplate>
                                     <%# Eval("question") %>
                                 </ItemTemplate>
@@ -552,7 +552,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Answer 1" HeaderStyle-Width="10%" FooterStyle-Width="10%" ControlStyle-Width="60%">
                                 <ItemTemplate>
-                                    <%# Eval("answer_1") %>
+                                    <%# Eval("answer_1").ToString().Split(' ').First().Length.ToString().Length == 2 ? Eval("answer_1").ToString().Substring(0, 8)+".." : Eval("answer_1")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtAnswer1" runat="Server" Text='<%# Eval("answer_1") %>'></asp:TextBox>
@@ -563,7 +563,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Answer 2" HeaderStyle-Width="10%" FooterStyle-Width="10%" ControlStyle-Width="60%">
                                 <ItemTemplate>
-                                    <%# Eval("answer_2") %>
+                                    <%# Eval("answer_2").ToString().Split(' ').First().Length.ToString().Length == 2 ? Eval("answer_2").ToString().Substring(0, 8) + ".." : Eval("answer_2")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtAnswer2" runat="Server" Text='<%# Eval("answer_2") %>'></asp:TextBox>
@@ -574,7 +574,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Answer 3" HeaderStyle-Width="10%" FooterStyle-Width="10%" ControlStyle-Width="60%">
                                 <ItemTemplate>
-                                    <%# Eval("answer_3") %>
+                                    <%# Eval("answer_3").ToString().Split(' ').First().Length.ToString().Length == 2 ? Eval("answer_3").ToString().Substring(0, 8) + ".." : Eval("answer_3")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtAnswer3" runat="Server" Text='<%# Eval("answer_3") %>'></asp:TextBox>
@@ -585,7 +585,7 @@
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Answer 4" HeaderStyle-Width="10%" FooterStyle-Width="10%" ControlStyle-Width="60%">
                                 <ItemTemplate>
-                                    <%# Eval("answer_4") %>
+                                    <%# Eval("answer_4").ToString().Split(' ').First().Length.ToString().Length == 2 ? Eval("answer_4").ToString().Substring(0, 8) + ".." : Eval("answer_4")%>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtAnswer4" runat="Server" Text='<%# Eval("answer_4") %>'></asp:TextBox>
