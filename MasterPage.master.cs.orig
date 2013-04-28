@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -16,6 +17,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
         //Connection to databse
         SqlConnection conn;
         using(conn = new SqlConnection())
@@ -118,14 +120,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
             Response.Write("box2");
     }
 
-    public void color_class()
-    {
-        if (SiteMap.CurrentNode != null)
-            Response.Write("box1");
-        else
-            Response.Write("box2");
-    }
-
     // decided whether it is a Default (main) page, or another page
     // Depending on the result of this function, the login box could be shown or not
     public void login_apperance()
@@ -183,15 +177,11 @@ public partial class MasterPage : System.Web.UI.MasterPage
             string[] xValues = new string[2];
             if (doneSections == 0)
             {
-                xValues[0] = "All sections";
+                xValues[0] = "Remained";
             }
             else
             {
-<<<<<<< HEAD
-                xValues[0] = "All sections";
-=======
                 xValues[0] = "Remained";
->>>>>>> cc64118d1a22044e76f3f092618202e53d574851
                 xValues[1] = "Done sections";
             }
             ((Chart)(LoginView1.FindControl("Chart1"))).Series["Default"].Points.DataBindXY(xValues, yValues);
@@ -201,15 +191,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
 
     }
-<<<<<<< HEAD
-    protected void Prediction()
-    {
-        
-=======
 
     protected void Prediction()
     {
->>>>>>> cc64118d1a22044e76f3f092618202e53d574851
         DateTime now;
         MembershipUser mu = Membership.GetUser(HttpContext.Current.User.Identity.Name);
         DateTime date = mu.CreationDate;
@@ -222,11 +206,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
             conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             conn.Open();
-<<<<<<< HEAD
-            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections", conn);
-=======
             SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections WHERE show=1", conn);
->>>>>>> cc64118d1a22044e76f3f092618202e53d574851
             sections = (int)command1.ExecuteScalar();
 
             SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);

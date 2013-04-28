@@ -40,34 +40,7 @@
                      Section 1
                   </HeaderTemplate>
                   <ContentTemplate>
-<<<<<<< HEAD
                      <div id="Tab_Panel_1" runat="server" />
-=======
-                     <div id="Tab_Panel_1" runat="server">
-
-
-
-                        
-
-                     <!--
-                     <form action="Default.aspx" method="get" >
-                        <p>
-                        <b>Question 1.</b> How are you?
-                        
-                        <select name="answers_1" id="question_1_a">
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="fiat">Fiat</option>
-                            <option value="audi">Audi</option>
-                        </select>
-                        <span id="question_1_c"></span>
-                        </p>
-                        <button>hi</button>
-                     </form>
-                     -->
-
-                     </div>
->>>>>>> 061194cfbf50918b86c41dea07edeeb7c79c1fa6
                   </ContentTemplate>
                </asp:TabPanel>
                   
@@ -76,18 +49,7 @@
                      Section 2
                   </HeaderTemplate>
                   <ContentTemplate>
-<<<<<<< HEAD
                      <div id="Tab_Panel_2" runat="server"/>
-=======
-                     <div id="Tab_Panel_2" runat="server">
-                        This is the content of tab1.<br />
-                        More content. More content. More content. More content. <br />
-                         <input id="Radio1" type="radio" />
-                         <input id="Radio2" type="radio" />
-                         <input id="Text1" type="text" />
-                         <input id="Button1" type="button" value="button" />
-                     </div>
->>>>>>> 061194cfbf50918b86c41dea07edeeb7c79c1fa6
                   </ContentTemplate>
                </asp:TabPanel>
 
@@ -117,6 +79,7 @@
                      <div id="Tab_Panel_5" runat="server"/>
                   </ContentTemplate>
                </asp:TabPanel>
+<<<<<<< HEAD
 
                <asp:TabPanel ID="TabPanel6" runat="server">
                   <HeaderTemplate>
@@ -129,6 +92,19 @@
 
             </asp:TabContainer>
          </div>
+=======
 
+               <asp:TabPanel ID="TabPanel6" runat="server">
+                  <HeaderTemplate>
+                     Section 6
+                  </HeaderTemplate>
+                  <ContentTemplate>
+                     <div id="Tab_Panel_6" runat="server"/>
+                  </ContentTemplate>
+               </asp:TabPanel>
+>>>>>>> a17670970d8bc2bb0f1764fd031aac32036e0257
+
+            </asp:TabContainer>
+         </div>
     </div>
 </asp:Content>

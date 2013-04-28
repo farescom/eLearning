@@ -16,10 +16,10 @@
   
   <system.web>
 <<<<<<< HEAD
-    <sessionState mode="InProc"/>
-=======
     
->>>>>>> cc64118d1a22044e76f3f092618202e53d574851
+=======
+    <sessionState mode="InProc"/>
+>>>>>>> a17670970d8bc2bb0f1764fd031aac32036e0257
     <httpHandlers>
       <add path="ChartImg.axd" verb="GET,HEAD,POST" type="System.Web.UI.DataVisualization.Charting.ChartHttpHandler, System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" validate="false"/>
     </httpHandlers>
@@ -30,16 +30,17 @@
         <add tagPrefix="ajaxToolkit" assembly="AjaxControlToolkit" namespace="AjaxControlToolkit"/>
       </controls>
     </pages>
-<<<<<<< HEAD
-    <roleManager enabled="true"/>
-    <authentication mode="Forms"/>
-=======
     
+<<<<<<< HEAD
     <roleManager enabled="true" />
     
     <authentication mode="Forms" />
+=======
+    <roleManager enabled="true"/>
     
->>>>>>> cc64118d1a22044e76f3f092618202e53d574851
+    <authentication mode="Forms"/>
+>>>>>>> a17670970d8bc2bb0f1764fd031aac32036e0257
+    
     <compilation debug="true" targetFramework="4.0">
       <assemblies>
         <add assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
