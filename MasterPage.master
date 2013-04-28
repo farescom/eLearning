@@ -1,8 +1,10 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+
+<head id="Head1" runat="server">
 
     <title>E-Learning platform</title>
 
@@ -24,9 +26,11 @@
 
 <body id="<%header_shape();%>">
 
-<form id="form2" runat="server">
+<form id="form2" runat="server"> <!-- action="Default.aspx" method="post" -->
 
     <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+
+
 
     <div class="body1">
         <div class="main">
@@ -118,16 +122,12 @@
         </div>
     </div>
 
-    <div class="body2">
-      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
-      <div class="main">
-        
- <div class="body2">
-      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
+     <div class="body2">
+      <% if (SiteMap.CurrentNode != null && SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
       <div class="main">
         
         <section id="content">
-          <div class="box1">
+          <div class="<%color_class();%>">
             <div class="wrapper">
 
               <!-- left side: the content -->

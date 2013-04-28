@@ -24,13 +24,10 @@ public partial class _Default : System.Web.UI.Page
         if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated)
         {
             string[] rolesuserbelongto = Roles.GetRolesForUser();
-            if (rolesuserbelongto.Length != 0)
-            {
-                if (rolesuserbelongto[0].Equals("Admin")
-                    || rolesuserbelongto[0].Equals("Registered")
-                    || rolesuserbelongto[0].Equals("Active"))
-                    Response.Write("<meta HTTP-EQUIV=\"REFRESH\" content=\"0; url=user/Default.aspx\">");
-            }
+            if (rolesuserbelongto[0].Equals("Admin")
+                || rolesuserbelongto[0].Equals("Registered")
+                || rolesuserbelongto[0].Equals("Active"))
+                Response.Write("<meta HTTP-EQUIV=\"REFRESH\" content=\"0; url=user/Default.aspx\">");
         }
     }
 }

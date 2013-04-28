@@ -539,6 +539,11 @@ footer a:hover {
     color: blue;
 }
 
+.darkblue
+{
+    color: Navy;
+}
+
 #logout
 {
     float: right;
@@ -596,4 +601,50 @@ footer a:hover {
     background: #FFFFFF;
     padding: 5px;
     margin: 5px;
+}
+
+#sections h2
+{
+    /*font-size: 16px;*/
+    /*color: blue;*/
+}
+
+.box2
+{
+    background: #F2F2F2;
+}
+
+#sections option
+{
+    background: #F2F2F2;
+}
+
+#sections p
+{
+    margin: 0px;
+    padding: 2px;
+}
+
+.exercises
+{
+    border: 1px dotted black;
+    padding: 0px 10px 10px 10px;
+    margin-top: 10px;
+    background: #F2F2F2;
+}
+
+.exercises input.input
+{
+    background: #F2F2F2;
+}
+
+.exercises .button
+{
+    font-size: larger;
+}
+
+#sections h2
+{
+    margin-bottom: 0px;
+    padding-bottom: 0px;
 }

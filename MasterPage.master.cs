@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
+using System.Web.Security;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
@@ -64,9 +64,16 @@ public partial class MasterPage : System.Web.UI.MasterPage
     }
 
     // displays a menu containing only top-level item.
-    public void display_menu()
+    public void display_menu() 
     {
-        Response.Write("<li><a href=\"" + SiteMap.RootNode.Url + "\">" + SiteMap.RootNode.Title + "</a></li>");
+        string[] roleNames = Roles.GetRolesForUser();
+        //Response.Write(roleNames[0]);
+        //  && (roleNames[0] == "User" || roleNames[0] == "Admin")
+
+        if (roleNames.Length != 0)
+            Response.Write("<li><a href=\"/eLearning/user/Default.aspx\" >" + SiteMap.RootNode.Title + "</a></li>");
+        else
+            Response.Write("<li><a href=\"" + SiteMap.RootNode.Url + "\">" + SiteMap.RootNode.Title + "</a></li>");
         int i = 0;
         for (; i < SiteMap.RootNode.ChildNodes.Count - 1; i++)
         {
@@ -92,6 +99,14 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
         else
                 Response.Write("page2");
+    }
+
+    public void color_class()
+    {
+        if (SiteMap.CurrentNode != null)
+            Response.Write("box1");
+        else
+            Response.Write("box2");
     }
 
     // decided whether it is a Default (main) page, or another page

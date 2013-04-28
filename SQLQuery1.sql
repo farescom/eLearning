@@ -31,6 +31,7 @@ CREATE TABLE Ratings (
 
 CREATE TABLE Sections (
     id int NOT NULL identity(1,1) PRIMARY KEY,	
+	number int,								/* the number of section */
     title varchar(300),						/* the title of section */
 	section_content varchar(8000),			/* the text of section */
     show tinyint							/* 0- hide section, 1- show section */

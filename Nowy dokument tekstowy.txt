@@ -1,3 +1,10 @@
+
+- sprawdzanie danych w formularzu.
+- naprawa aby dzialal.
+
+
+
+
                         <asp:Login ID="Login2" runat="server" DestinationPageUrl="user/Default.aspx">
                             <LayoutTemplate>
                                 <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
