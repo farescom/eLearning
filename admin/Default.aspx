@@ -73,10 +73,10 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderStyle-Width="9%" FooterStyle-Width="90%" ControlStyle-Width="90%" ItemStyle-HorizontalAlign="Center"  HeaderText="Birthday">
                         <ItemTemplate>
-                            <%# Eval("birthday").ToString().Substring(0, 10)%>
+                            <%# Eval("birthday").ToString().Equals("") ? Eval("birthday") : Eval("birthday").ToString().Substring(0, 10)%>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:TextBox ID="txtBirthday" runat="Server" Text='<%# Eval("birthday").ToString().Substring(0, 10) %>'></asp:TextBox>
+                            <asp:TextBox ID="txtBirthday" runat="Server" Text='<%# Eval("birthday").ToString().Equals("") ? Eval("birthday") : Eval("birthday").ToString().Substring(0, 10) %>'></asp:TextBox>
                         </EditItemTemplate>
                         <FooterTemplate>
                             <asp:TextBox CssClass="widthTextBox" ID="txtBirthdayFooter" runat="Server"></asp:TextBox>

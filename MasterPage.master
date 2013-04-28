@@ -1,15 +1,14 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register TagPrefix="asp" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit"%>
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
     Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 
     <title>E-Learning platform</title>
-
+    
     <link rel="stylesheet" href="css/reset.css" type="text/css"/>
     <link rel="stylesheet" href="css/layout.css" type="text/css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
@@ -18,7 +17,7 @@
     <script type="text/javascript" src="js/cufon-replace.js"></script>
     <script type="text/javascript" src="js/Molengo_400.font.js"></script>
     <script type="text/javascript" src="js/Expletus_Sans_400.font.js"></script> 
-    
+     
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 
@@ -28,16 +27,17 @@
 
 <body id="<%header_shape();%>">
 
-
-<form id="form2" runat="server">
+<form id="form2" runat="server"> <!-- action="Default.aspx" method="post" -->
     <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnablePartialRendering="true"></asp:ToolkitScriptManager>
+
     <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
 
     <div class="body1">
         <div class="main">
-        <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) Response.Write("<header>");
-              else Response.Write("<header style='height: 61px;'>");
-                %>
+        <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin") == -1)
+               Response.Write("<header>");
+               else Response.Write("<header style='height: 61px;'>");
+        %>
             <div class="wrapper">
 
                 <nav>
@@ -109,14 +109,13 @@
             </LoggedInTemplate>
             </asp:LoginView>
 
-            <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1)
-                 { %>
+            <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin") == -1) { %>
             <div class="wrapper">
                 <h1><a href="Default.aspx" id="logo">E-Learning platfrom</a></h1>
             </div>
             <div id="slogan"> Web Engineering<span>Welcome to the world of ASP.NET!</span> </div>
 
-            <%header_banners();%>
+            <% header_banners(); %>
 
             <div id="sitepath" class="<%path_apperance();%>">
                 Site path: 
@@ -128,18 +127,13 @@
         </div>
     </div>
 
-    <div class="body2">
-      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
-      <div class="main">
-        
  <div class="body2">
-      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
+      <% if (SiteMap.CurrentNode != null && SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
       <div class="main">
         
         <section id="content">
-           <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) Response.Write("<div class='box1'>");
-              else Response.Write("<div class='box1' style='padding: 0;'>");
-                %>
+            
+          <div class="<%color_class();%>">
             <div class="wrapper">
 
               <!-- left side: the content style='padding: 0;' -->
@@ -148,7 +142,8 @@
                 </asp:ContentPlaceHolder>
               </article>
 
-              <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) { %>
+              <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin") == -1) { %>
+
               <!-- right side: the columns with login, user and opinions panels -->
               <article class="col2 pad_left2">
                 <div class="pad_left1">
@@ -212,18 +207,26 @@
                     
 
                     <LoggedInTemplate>
+                        
                         <div class="box">
                             <h2>User panel</h2>
                             Hello <asp:LoginName ID="LoginName2" runat="server"></asp:LoginName>
                             <br />
-                            <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
-                            <p id="UserInfo" runat="server"></p>
-                            <a href="profile.aspx">Change my profile</a>
+                            <br />
+                            - <a id="profil" href="profile.aspx">Your profile</a>
+                            <br />
+                            - <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
+                            
+                            <!-- <p id="UserInfo" runat="server"></p> -->
+
+                            
                         </div>
+
                         <br />
+
                         <div class="box">
                             <h2>User statistics</h2>
-                        <p>
+                            <span><b>Your progress:</b></span>
                             <asp:Chart ID="Chart1" runat="server" 
                                 onload="Chart1_Load" Height="220px" Width="220px">
                                 <Series>
@@ -235,7 +238,8 @@
                                     </asp:ChartArea>
                                 </ChartAreas>
                             </asp:Chart>
-                        </p>
+                            <span><b>Predicted date of completion:</b><br /><% Prediction(); %> </span>
+                         </div>
 
                     </LoggedInTemplate>
                   </asp:LoginView>
@@ -249,7 +253,8 @@
 
                 </div>  
               </article>
-            <% } %>
+
+              <% } %>
             </div>
           </div>
         </section>
@@ -267,7 +272,7 @@
           </div>
         </footer>
 
-      </div>
+    </div>
     </div>
 </form>
 </body>
