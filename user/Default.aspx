@@ -91,6 +91,53 @@
 
             </asp:TabContainer>
          </div>
+                  
+               <asp:TabPanel ID="TabPanel2" runat="server">
+                  <HeaderTemplate>
+                     Section 2
+                  </HeaderTemplate>
+                  <ContentTemplate>
+                     <div id="Tab_Panel_2" runat="server"/>
+                  </ContentTemplate>
+               </asp:TabPanel>
 
+               <asp:TabPanel ID="TabPanel3" runat="server">
+                  <HeaderTemplate>
+                     Section 3
+                  </HeaderTemplate>
+                  <ContentTemplate>
+                     <div id="Tab_Panel_3" runat="server"/>
+                  </ContentTemplate>
+               </asp:TabPanel>
+
+               <asp:TabPanel ID="TabPanel4" runat="server">
+                  <HeaderTemplate>
+                     Section 4
+                  </HeaderTemplate>
+                  <ContentTemplate>
+                     <div id="Tab_Panel_4" runat="server"/>
+                  </ContentTemplate>
+               </asp:TabPanel>
+
+               <asp:TabPanel ID="TabPanel5" runat="server">
+                  <HeaderTemplate>
+                     Section 5
+                  </HeaderTemplate>
+                  <ContentTemplate>
+                     <div id="Tab_Panel_5" runat="server"/>
+                  </ContentTemplate>
+               </asp:TabPanel>
+
+               <asp:TabPanel ID="TabPanel6" runat="server">
+                  <HeaderTemplate>
+                     Section 6
+                  </HeaderTemplate>
+                  <ContentTemplate>
+                     <div id="Tab_Panel_6" runat="server"/>
+                  </ContentTemplate>
+               </asp:TabPanel>
+
+            </asp:TabContainer>
+         </div>
     </div>
 </asp:Content>

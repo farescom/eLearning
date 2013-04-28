@@ -42,6 +42,41 @@ public partial class _Default : System.Web.UI.Page
         e.NewValues["jump_posibility"] = ((DropDownList)row.FindControl("dropJump")).SelectedValue;
     }
 
+    protected void SettingsUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        // Get the GridViewRow object that represents the row being edited
+        // from the Rows collection of the GridView control.
+        int index = GridView3.EditIndex;
+        GridViewRow row = GridView3.Rows[index];
+
+        e.NewValues["coursename"] = ((TextBox)row.FindControl("txtCoursename")).Text;
+        e.NewValues["slogan"] = ((TextBox)row.FindControl("txtSlogan")).Text;
+        e.NewValues["show_opinions"] = ((DropDownList)row.FindControl("dropShow")).SelectedValue;
+        e.NewValues["receive_opinions"] = ((DropDownList)row.FindControl("dropReceive")).SelectedValue;
+        e.NewValues["active_version"] = ((TextBox)row.FindControl("txtActive")).Text;
+        e.NewValues["site_mode"] = ((DropDownList)row.FindControl("dropMode")).SelectedValue;
+    }
+
+    protected void StartpageUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        // Get the GridViewRow object that represents the row being edited
+        // from the Rows collection of the GridView control.
+        int index = GridView7.EditIndex;
+        GridViewRow row = GridView7.Rows[index];
+
+        e.NewValues["startpage_content"] = ((TextBox)row.FindControl("txtStart")).Text;
+    }
+
+    protected void AboutusUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        // Get the GridViewRow object that represents the row being edited
+        // from the Rows collection of the GridView control.
+        int index = GridView9.EditIndex;
+        GridViewRow row = GridView9.Rows[index];
+
+        e.NewValues["aboutus_content"] = ((TextBox)row.FindControl("txtAbout")).Text;
+    }
+
     protected void SectionsUpdating(object sender, GridViewUpdateEventArgs e)
     {
         // Get the GridViewRow object that represents the row being edited
@@ -141,11 +176,17 @@ public partial class _Default : System.Web.UI.Page
 
     protected void UploadComplete(object sender, AjaxControlToolkit.AjaxFileUploadEventArgs e)
     {
-        SqlDataSource6.InsertParameters["title"].DefaultValue = e.FileName;
-        SqlDataSource6.InsertParameters["file_path"].DefaultValue = Request.PhysicalApplicationPath + "materials\\" + e.FileName;
+        Session["fileName"] = e.FileName;
+        Session["filePath"] = Request.PhysicalApplicationPath + "materials\\" + e.FileName;
+        AjaxFileUpload1.SaveAs(Request.PhysicalApplicationPath + "materials\\" + e.FileName);
+    }
+
+    protected void MaterialInserting(object sender, EventArgs e)
+    {
+        SqlDataSource6.InsertParameters["title"].DefaultValue = (String)Session["fileName"];
+        SqlDataSource6.InsertParameters["file_path"].DefaultValue = (String)Session["filePath"];
         SqlDataSource6.InsertParameters["description"].DefaultValue = txtDescMaterial.Text;
         SqlDataSource6.InsertParameters["show"].DefaultValue = dropShowMaterial.SelectedValue;
-        AjaxFileUpload1.SaveAs(Request.PhysicalApplicationPath + "materials\\" + e.FileName);
         SqlDataSource6.Insert();
     }
 
