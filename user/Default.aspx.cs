@@ -26,7 +26,7 @@ public partial class _Default : System.Web.UI.Page
         // Checking wich tab is opened
         int tab_index = TabContainer1.ActiveTabIndex;
 
-        int done_or_not = 0;
+        int limited = 1; // 1- if the user is not active, so he have limited access
 
         //Connection to databse
         SqlConnection conn, conn2;
@@ -52,135 +52,144 @@ public partial class _Default : System.Web.UI.Page
             int correct_answers_counter = -1;
             int current_section = -1;
 
+            // cheking the role of user
+            if (Roles.IsUserInRole("Active") || Roles.IsUserInRole("Admin"))
+            {
+                limited = 0;
+            }
+
             while (reader.Read())
             {
-                section_mapping[counter] = (int)reader["id"];
-
-                // section material
-                tab[counter].InnerHtml = "<H2 class=\"red\">" + reader["title"] + "</H2>";
-
-                // check if it is done or not?
-                string dbstring2 = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                SqlConnection con2 = new SqlConnection(dbstring2);
-                con2.Open();
-                string UserId2 = Membership.GetUser().ProviderUserKey.ToString();
-                string sqlStr2 = "SELECT section_id FROM Done_sections WHERE userid = '" + UserId2 + "' AND section_id = " + reader["id"];
-                SqlCommand sqlCmd2 = new SqlCommand(sqlStr2, con2);
-                Object o = sqlCmd2.ExecuteScalar();
-                if (o != null) tab[counter].InnerHtml += "<strong><p class=\"green\">Already done!</p></strong>";
-                con2.Close();
-
-                // section content
-                tab[counter].InnerHtml += "<br />"+reader["section_content"];
-
-                // exercises
-                using (conn2 = new SqlConnection())
+                if (limited == 0 || (limited == 1 && counter == 0))
                 {
-                    conn2.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
-                    conn2.Open();
-                    SqlCommand command2 = new SqlCommand("SELECT question, question_type, answer_1, answer_2, answer_3, answer_4, correct FROM Questions WHERE section_id = " + reader["id"], conn2);
-                    SqlDataReader reader2 = command2.ExecuteReader();
-                    int counter2 = 0;
+                    section_mapping[counter] = (int)reader["id"];
 
-                    tab[counter].InnerHtml += "<div class=\"exercises\">";
-                    while (reader2.Read())
+                    // section material
+                    tab[counter].InnerHtml = "<H2 class=\"red\">" + reader["title"] + "</H2>";
+
+                    // check if it is done or not?
+                    string dbstring2 = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                    SqlConnection con2 = new SqlConnection(dbstring2);
+                    con2.Open();
+                    string UserId2 = Membership.GetUser().ProviderUserKey.ToString();
+                    string sqlStr2 = "SELECT section_id FROM Done_sections WHERE userid = '" + UserId2 + "' AND section_id = " + reader["id"];
+                    SqlCommand sqlCmd2 = new SqlCommand(sqlStr2, con2);
+                    Object o = sqlCmd2.ExecuteScalar();
+                    if (o != null) tab[counter].InnerHtml += "<strong><p class=\"green\">Already done!</p></strong>";
+                    con2.Close();
+
+                    // section content
+                    tab[counter].InnerHtml += "<br />" + reader["section_content"];
+
+                    // exercises
+                    using (conn2 = new SqlConnection())
                     {
+                        conn2.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+                        conn2.Open();
+                        SqlCommand command2 = new SqlCommand("SELECT question, question_type, answer_1, answer_2, answer_3, answer_4, correct FROM Questions WHERE section_id = " + reader["id"], conn2);
+                        SqlDataReader reader2 = command2.ExecuteReader();
+                        int counter2 = 0;
 
-                        if (counter2 == 0) tab[counter].InnerHtml += "<H3 class=\"green\"> Excersises:</H3>";
-
-                        tab[counter].InnerHtml +="<p><b class=\"darkblue\">Question "+(counter2+1)+".</b> " + reader2["question"];
-
-                        if ((byte)reader2["question_type"] == 0)      // open question
+                        tab[counter].InnerHtml += "<div class=\"exercises\">";
+                        while (reader2.Read())
                         {
-                            tab[counter].InnerHtml += "<input type=\"text\" class=\"input\" name=\"question_" + counter + "_" + counter2 + "\" placeholder=\"_____________________\"/>";
-                            tab[counter].InnerHtml +="<span id=\"question_"+counter+"_"+counter2+"_\"></span>";
-                        }
-                        else if ((byte)reader2["question_type"] == 1) // multiple choice question
-                        {
-                            tab[counter].InnerHtml +="<select name=\"question_"+counter+"_"+counter2+"\" id=\"question_"+counter+"_"+counter2+"\">";
-                            
-                            if (reader2["answer_1"] != null)
-                                tab[counter].InnerHtml += "<option value=\""+reader2["answer_1"]+"\">"+reader2["answer_1"]+"</option>";
-                            if (reader2["answer_2"] != null)
-                                tab[counter].InnerHtml += "<option value=\""+reader2["answer_2"]+"\">"+reader2["answer_2"]+"</option>";
-                            if (reader2["answer_3"] != null)
-                                tab[counter].InnerHtml += "<option value=\""+reader2["answer_3"]+"\">"+reader2["answer_3"]+"</option>";
-                            if (reader2["answer_4"] != null)
-                                tab[counter].InnerHtml += "<option value=\""+reader2["answer_4"]+"\">"+reader2["answer_4"]+"</option>";
-                           
-                            tab[counter].InnerHtml +="</select><span id=\"question_"+counter+"_"+counter2+"_\"></span>";
-                        }
 
-                        // Checking the correct answer
-                        string user_answer = Request.Form["question_" + counter + "_" + counter2];
-                        if ((user_answer != null) && tab_index == counter)
-                        {
-                            current_section = counter;
-                            if (user_answer.Equals(reader2["correct"]))
+                            if (counter2 == 0) tab[counter].InnerHtml += "<H3 class=\"green\"> Excersises:</H3>";
+
+                            tab[counter].InnerHtml += "<p><b class=\"darkblue\">Question " + (counter2 + 1) + ".</b> " + reader2["question"];
+
+                            if ((byte)reader2["question_type"] == 0)      // open question
                             {
-                                tab[counter].InnerHtml += "<br /><span class=\"green\"> correct!</span>";
-                                if (correct_answers_counter == -1)
-                                    correct_answers_counter = 1;
+                                tab[counter].InnerHtml += "<input type=\"text\" class=\"input\" name=\"question_" + counter + "_" + counter2 + "\" placeholder=\"_____________________\"/>";
+                                tab[counter].InnerHtml += "<span id=\"question_" + counter + "_" + counter2 + "_\"></span>";
+                            }
+                            else if ((byte)reader2["question_type"] == 1) // multiple choice question
+                            {
+                                tab[counter].InnerHtml += "<select name=\"question_" + counter + "_" + counter2 + "\" id=\"question_" + counter + "_" + counter2 + "\">";
+
+                                if (reader2["answer_1"] != null)
+                                    tab[counter].InnerHtml += "<option value=\"" + reader2["answer_1"] + "\">" + reader2["answer_1"] + "</option>";
+                                if (reader2["answer_2"] != null)
+                                    tab[counter].InnerHtml += "<option value=\"" + reader2["answer_2"] + "\">" + reader2["answer_2"] + "</option>";
+                                if (reader2["answer_3"] != null)
+                                    tab[counter].InnerHtml += "<option value=\"" + reader2["answer_3"] + "\">" + reader2["answer_3"] + "</option>";
+                                if (reader2["answer_4"] != null)
+                                    tab[counter].InnerHtml += "<option value=\"" + reader2["answer_4"] + "\">" + reader2["answer_4"] + "</option>";
+
+                                tab[counter].InnerHtml += "</select><span id=\"question_" + counter + "_" + counter2 + "_\"></span>";
+                            }
+
+                            // Checking the correct answer
+                            string user_answer = Request.Form["question_" + counter + "_" + counter2];
+                            if ((user_answer != null) && tab_index == counter)
+                            {
+                                current_section = counter;
+                                if (user_answer.Equals(reader2["correct"]))
+                                {
+                                    tab[counter].InnerHtml += "<br /><span class=\"green\"> correct!</span>";
+                                    if (correct_answers_counter == -1)
+                                        correct_answers_counter = 1;
+                                    else
+                                        correct_answers_counter++;
+                                }
                                 else
-                                    correct_answers_counter++;
+                                {
+                                    tab[counter].InnerHtml += "<br /><span class=\"red\"> wrong!</span>";
+                                    tab[counter].InnerHtml += " Correct answer is: " + reader2["correct"];
+                                    if (correct_answers_counter == -1) correct_answers_counter = 0;
+                                }
                             }
-                            else
-                            {
-                                tab[counter].InnerHtml += "<br /><span class=\"red\"> wrong!</span>";
-                                tab[counter].InnerHtml += " Correct answer is: " + reader2["correct"];
-                                if (correct_answers_counter == -1) correct_answers_counter = 0;
-                            }
+
+                            tab[counter].InnerHtml += "</p>";
+                            counter2++;
                         }
+                        section_questions[counter] = counter2; // the number of answers in section nr counter.
+                        if (counter2 != 0)
+                            tab[counter].InnerHtml += "<input class=\"button\" type=\"submit\" value=\"Check\" />";
 
-                        tab[counter].InnerHtml +="</p>";
-                        counter2++;
-                    }
-                    section_questions[counter] = counter2; // the number of answers in section nr counter.
-                    if (counter2 != 0)
-                        tab[counter].InnerHtml += "<input class=\"button\" type=\"submit\" value=\"Check\" />";
-
-                    // showing the statistics of correct answers
-                    if (correct_answers_counter != -1 && counter == tab_index)
-                    {
-                        tab[counter].InnerHtml += "<br /><b>Your gained: " + correct_answers_counter + "/" + counter2 + " points. ";
-                        int result = ((correct_answers_counter * 100 / counter2));
-                        tab[counter].InnerHtml += "<br />It's " + result + "%</b>";
-                        if (result < 50)
-                            tab[counter].InnerHtml += "<b><br />Your results are low. <span class=\"red\">You did not pass the section!</span></b>";
-                        else if (result < 75)
-                            tab[counter].InnerHtml += "<b><br />Your results are quite good. <span class=\"green\">You passed this section!</span></b>";
-                        else
-                            tab[counter].InnerHtml += "<b><br />Your results are very good! Keep doing this way. <span class=\"green\">You passed this section!</span></b>";
-
-                        if (result >= 50) // update table Done_Sections
+                        // showing the statistics of correct answers
+                        if (correct_answers_counter != -1 && counter == tab_index)
                         {
-                            string dbstring = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-                            SqlConnection con = new SqlConnection(dbstring);
-                            con.Open();
+                            tab[counter].InnerHtml += "<br /><b>Your gained: " + correct_answers_counter + "/" + counter2 + " points. ";
+                            int result = ((correct_answers_counter * 100 / counter2));
+                            tab[counter].InnerHtml += "<br />It's " + result + "%</b>";
+                            if (result < 50)
+                                tab[counter].InnerHtml += "<b><br />Your results are low. <span class=\"red\">You did not pass the section!</span></b>";
+                            else if (result < 75)
+                                tab[counter].InnerHtml += "<b><br />Your results are quite good. <span class=\"green\">You passed this section!</span></b>";
+                            else
+                                tab[counter].InnerHtml += "<b><br />Your results are very good! Keep doing this way. <span class=\"green\">You passed this section!</span></b>";
 
-                            string UserId = Membership.GetUser().ProviderUserKey.ToString();
-
-                            string sqlStr = "SELECT count(*) FROM Done_sections WHERE userid='" + UserId + "' AND section_id=" + section_mapping[tab_index];
-                            SqlCommand sqlCmd = new SqlCommand(sqlStr, con);
-                            Object oo = sqlCmd.ExecuteScalar();
-                            int countt = (int)oo;
-                            if (countt == 0)
+                            if (result >= 50) // update table Done_Sections
                             {
-                                sqlStr = "INSERT INTO Done_sections (userid, section_id) VALUES (@userid, @section_id)";
-                                sqlCmd = new SqlCommand(sqlStr, con);
-                                sqlCmd.Parameters.AddWithValue("@userid", UserId);
-                                sqlCmd.Parameters.AddWithValue("@section_id", section_mapping[tab_index]);
-                                sqlCmd.ExecuteNonQuery();
-                            }
-                            con.Close();
-                        }
-                    }
-                    tab[counter].InnerHtml += "</div>";
+                                string dbstring = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                                SqlConnection con = new SqlConnection(dbstring);
+                                con.Open();
 
-                    counter++;
-                    reader2.Close();
-                }
-            }
+                                string UserId = Membership.GetUser().ProviderUserKey.ToString();
+
+                                string sqlStr = "SELECT count(*) FROM Done_sections WHERE userid='" + UserId + "' AND section_id=" + section_mapping[tab_index];
+                                SqlCommand sqlCmd = new SqlCommand(sqlStr, con);
+                                Object oo = sqlCmd.ExecuteScalar();
+                                int countt = (int)oo;
+                                if (countt == 0)
+                                {
+                                    sqlStr = "INSERT INTO Done_sections (userid, section_id) VALUES (@userid, @section_id)";
+                                    sqlCmd = new SqlCommand(sqlStr, con);
+                                    sqlCmd.Parameters.AddWithValue("@userid", UserId);
+                                    sqlCmd.Parameters.AddWithValue("@section_id", section_mapping[tab_index]);
+                                    sqlCmd.ExecuteNonQuery();
+                                }
+                                con.Close();
+                            }
+                        }
+                        tab[counter].InnerHtml += "</div>";
+
+                        counter++;
+                        reader2.Close();
+                    } // enf of using statement
+                } // end of if
+            } // enf of while
             reader.Close();
         }
     }
