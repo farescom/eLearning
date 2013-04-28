@@ -8,12 +8,14 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
 using System.Web.UI.DataVisualization.Charting;
+using OpinionControl;
+using System.Web.Security;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
+
     protected void Page_Load(object sender, EventArgs e)
     {
-
         //Connection to databse
         SqlConnection conn;
         using(conn = new SqlConnection())
@@ -40,8 +42,12 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
                 for (int i = 0; i < randomRows; i++)
                 {
-                    randomOpinions.InnerHtml += "<div class='RandOpinionDesc'><img style='margin-right: 10px;' src='images/quot1.gif' />" + dt.Rows[i][4] + "<img style='margin-left: 15px;' src='images/quot1.gif' /></div>" +
-                        "<div class='RandOpinionAuthor'>" + dt.Rows[i][1] + "</div>";
+                    Opinion opinion = new Opinion(dt.Rows[i][4].ToString(), dt.Rows[i][1].ToString());
+                    randomOpinions.Controls.Add(opinion);
+                    //randomOpinions.InnerHtml += "<div class='RandOpinionDesc'><img style='' src='images/quot1.gif' />" + dt.Rows[i][4] + "<img style='margin-left: 15px;' src='images/quot1.gif' /></div>" +
+                    //    "<div class='RandOpinionAuthor'>" + dt.Rows[i][1] + "</div>";
+                    //randomOpinions.InnerHtml += "<div class='RandOpinionDesc'><asp:Image runat='server' ImageUrl='~/images/quot1.gif' />" + dt.Rows[i][4] + "<asp:Image runat='server' ImageUrl='~/images/quot1.gif' /></div>" +
+                    //    "<div class='RandOpinionAuthor'>" + dt.Rows[i][1] + "</div>";
                 }
             }
             else randomOpinions.InnerText = "Brak opini";
@@ -149,13 +155,53 @@ public partial class MasterPage : System.Web.UI.MasterPage
             SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
             int doneSections = (int)command2.ExecuteScalar();
 
-            int[] yValues = { 2, 1};
-            string[] xValues = { "All sections", "Done sections"};
+            int[] yValues = { (sections - doneSections), doneSections };
+            string[] xValues = new string[2];
+            if (doneSections == 0)
+            {
+                xValues[0] = "All sections";
+            }
+            else
+            {
+                xValues[0] = "All sections";
+                xValues[1] = "Done sections";
+            }
             ((Chart)(LoginView1.FindControl("Chart1"))).Series["Default"].Points.DataBindXY(xValues, yValues);
 
             //LoginView1.FindControl("Chart1");.Series["Default"].Points[0].Color = Color.MediumSeaGreen;
             //LoginView1.FindControl("Chart1");.Series["Default"].Points[1].Color = Color.PaleGreen;
         }
 
+    }
+    protected void Prediction()
+    {
+        
+        DateTime now;
+        MembershipUser mu = Membership.GetUser(HttpContext.Current.User.Identity.Name);
+        DateTime date = mu.CreationDate;
+        now = DateTime.Now;
+        SqlConnection conn;
+        int sections;
+        int doneSections;
+        using (conn = new SqlConnection())
+        {
+
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            conn.Open();
+            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections", conn);
+            sections = (int)command1.ExecuteScalar();
+
+            SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
+            doneSections = (int)command2.ExecuteScalar();
+        }
+        int sectionsToDo = sections - doneSections;
+        int x = (int)(now - date).TotalDays;
+        if (doneSections != 0)
+        {
+            int z = (x * sectionsToDo) / doneSections;
+            DateTime finish = DateTime.Now.AddDays(z);
+            Response.Write(finish);
+        }
+        else Response.Write("impossible to predict");
     }
 }

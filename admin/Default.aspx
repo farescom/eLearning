@@ -73,10 +73,10 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderStyle-Width="9%" FooterStyle-Width="90%" ControlStyle-Width="90%" ItemStyle-HorizontalAlign="Center"  HeaderText="Birthday">
                         <ItemTemplate>
-                            <%# Eval("birthday").ToString().Substring(0, 10)%>
+                            <%# Eval("birthday").ToString().Equals("") ? Eval("birthday") : Eval("birthday").ToString().Substring(0, 10)%>
                         </ItemTemplate>
                         <EditItemTemplate>
-                            <asp:TextBox ID="txtBirthday" runat="Server" Text='<%# Eval("birthday").ToString().Substring(0, 10) %>'></asp:TextBox>
+                            <asp:TextBox ID="txtBirthday" runat="Server" Text='<%# Eval("birthday").ToString().Equals("") ? Eval("birthday") : Eval("birthday").ToString().Substring(0, 10) %>'></asp:TextBox>
                         </EditItemTemplate>
                         <FooterTemplate>
                             <asp:TextBox CssClass="widthTextBox" ID="txtBirthdayFooter" runat="Server"></asp:TextBox>
@@ -159,10 +159,9 @@
                     <asp:GridView ID="GridView3" runat="Server" AutoGenerateColumns="False" DataSourceID="SqlDataSource2"
                     BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
                     CellPadding="0" ForeColor="Black" GridLines="Vertical" SkinID="RecordList" Width="100%"
-                    ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="UsersUpdating">
+                    ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="SettingsUpdating">
                     <Columns>
-                    <asp:CommandField ShowDeleteButton="True" />
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Coursename" HeaderStyle-Width="10%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Coursename" HeaderStyle-Width="30%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                         <ItemTemplate>
                             <%# Eval("coursename") %>
                         </ItemTemplate>
@@ -173,7 +172,7 @@
                             <asp:TextBox CssClass="widthTextBox" ID="txtCoursename" runat="Server"></asp:TextBox>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Slogan" HeaderStyle-Width="10%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Slogan" HeaderStyle-Width="30%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                         <ItemTemplate>
                             <%# Eval("slogan") %>
                         </ItemTemplate>
@@ -218,28 +217,6 @@
                             </asp:DropDownList>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderStyle-Width="9%" FooterStyle-Width="80%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center"  HeaderText="Startpage Content">
-                        <ItemTemplate>
-                            <%# Eval("startpage_content")%>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:TextBox ID="txtStart" Columns="30" runat="Server" Text='<%# Eval("startpage_content") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <FooterTemplate>
-                            <asp:TextBox CssClass="widthTextBox" ID="txtStart" runat="Server" Text='<%# Eval("startpage_content") %>'></asp:TextBox>
-                        </FooterTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderStyle-Width="11%" FooterStyle-Width="80%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center"  HeaderText="About Us">
-                        <ItemTemplate>
-                            <%# Eval("aboutus_content")%>
-                        </ItemTemplate>
-                        <EditItemTemplate>
-                            <asp:TextBox ID="txtAbout" Columns="30" runat="Server" Text='<%# Eval("aboutus_content") %>'></asp:TextBox>
-                        </EditItemTemplate>
-                        <FooterTemplate>
-                            <asp:TextBox CssClass="widthTextBox" ID="txtAbout" runat="Server" Text='<%# Eval("aboutus_content") %>'></asp:TextBox>
-                        </FooterTemplate>
-                    </asp:TemplateField>
                     <asp:TemplateField HeaderStyle-Width="9%" FooterStyle-Width="80%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center"  HeaderText="Active Ver.">
                         <ItemTemplate>
                             <%# Eval("active_version")%>
@@ -251,7 +228,7 @@
                             <asp:TextBox CssClass="widthTextBox" ID="txtActive" runat="Server" Text='<%# Eval("active_version") %>'></asp:TextBox>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Receive opinions" HeaderStyle-Width="6%" FooterStyle-Width="100%" ControlStyle-Width="100%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Receive opinions" HeaderStyle-Width="15%" FooterStyle-Width="100%" ControlStyle-Width="100%">
                         <ItemTemplate>
                             <%# Eval("site_mode").ToString().ToLower().Equals("1") ? "Opened" : "Closed"%>
                         </ItemTemplate>
@@ -266,6 +243,82 @@
                                 <asp:ListItem Text="Opened" Value="1"></asp:ListItem>
                                 <asp:ListItem Text="Closed" Value="0"></asp:ListItem>
                             </asp:DropDownList>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    </Columns>
+                    <FooterStyle BackColor="#CCCC99" />
+                    <RowStyle BackColor="#F7F7DE" />
+                    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                    <AlternatingRowStyle BackColor="White" />
+                    </asp:GridView>
+                </ContentTemplate>
+            </asp:TabPanel>
+            <asp:TabPanel ID="TabPanel7" runat="server" HeaderText="Startpage content">
+                <ContentTemplate>
+                    <asp:GridView ID="GridView7" runat="Server" AutoGenerateColumns="False" DataSourceID="SqlDataSource9"
+                    BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
+                    CellPadding="0" ForeColor="Black" GridLines="Vertical" SkinID="RecordList" Width="100%"
+                    ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="StartpageUpdating">
+                    <Columns>
+                    <asp:TemplateField HeaderStyle-Width="80%" FooterStyle-Width="80%" ControlStyle-Width="100%" ItemStyle-HorizontalAlign="Center"  HeaderText="Startpage Content">
+                        <ItemTemplate>
+                            <%# Eval("startpage_content")%>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtStart" TextMode="MultiLine" Columns="30" Rows="20" Text='<%# Eval("startpage_content") %>' runat="server"></asp:TextBox>
+                            <asp:HtmlEditorExtender ID="HtmlEditorExtender2" TargetControlID="txtStart" runat="server">
+                                <Toolbar>
+                                    <asp:Undo /><asp:Redo /><asp:Bold /><asp:Italic /><asp:Underline /><asp:StrikeThrough />
+                                    <asp:Subscript /><asp:Superscript /><asp:JustifyLeft /><asp:JustifyCenter /><asp:JustifyRight /><asp:JustifyFull />
+                                    <asp:InsertOrderedList /><asp:InsertUnorderedList /><asp:CreateLink /><asp:UnLink /><asp:RemoveFormat /><asp:SelectAll /><asp:UnSelect />
+                                    <asp:Delete /><asp:Cut /><asp:Copy /><asp:Paste /><asp:BackgroundColorSelector />
+                                    <asp:ForeColorSelector /><asp:FontNameSelector /><asp:FontSizeSelector /><asp:Indent />
+                                    <asp:Outdent /><asp:InsertHorizontalRule /><asp:HorizontalSeparator /><asp:InsertImage />
+                                </Toolbar>
+                            </asp:HtmlEditorExtender>
+                        </EditItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox CssClass="widthTextBox" ID="txtStart" runat="Server" Text='<%# Eval("startpage_content") %>'></asp:TextBox>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    </Columns>
+                    <FooterStyle BackColor="#CCCC99" />
+                    <RowStyle BackColor="#F7F7DE" />
+                    <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+                    <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+                    <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+                    <AlternatingRowStyle BackColor="White" />
+                    </asp:GridView>
+                </ContentTemplate>
+            </asp:TabPanel>
+            <asp:TabPanel ID="TabPanel9" runat="server" HeaderText="About us">
+                <ContentTemplate>
+                    <asp:GridView ID="GridView9" runat="Server" AutoGenerateColumns="False" DataSourceID="SqlDataSource10"
+                    BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px"
+                    CellPadding="0" ForeColor="Black" GridLines="Vertical" SkinID="RecordList" Width="100%"
+                    ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="AboutusUpdating">
+                    <Columns>
+                    <asp:TemplateField HeaderStyle-Width="80%" FooterStyle-Width="80%" ControlStyle-Width="100%" ItemStyle-HorizontalAlign="Center"  HeaderText="About Us">
+                        <ItemTemplate>
+                            <%# Eval("aboutus_content")%>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtAbout" TextMode="MultiLine" Columns="30" Rows="20" Text='<%# Eval("aboutus_content") %>' runat="server"></asp:TextBox>
+                            <asp:HtmlEditorExtender ID="HtmlEditorExtender3" TargetControlID="txtAbout" runat="server">
+                                <Toolbar>
+                                    <asp:Undo /><asp:Redo /><asp:Bold /><asp:Italic /><asp:Underline /><asp:StrikeThrough />
+                                    <asp:Subscript /><asp:Superscript /><asp:JustifyLeft /><asp:JustifyCenter /><asp:JustifyRight /><asp:JustifyFull />
+                                    <asp:InsertOrderedList /><asp:InsertUnorderedList /><asp:CreateLink /><asp:UnLink /><asp:RemoveFormat /><asp:SelectAll /><asp:UnSelect />
+                                    <asp:Delete /><asp:Cut /><asp:Copy /><asp:Paste /><asp:BackgroundColorSelector />
+                                    <asp:ForeColorSelector /><asp:FontNameSelector /><asp:FontSizeSelector /><asp:Indent />
+                                    <asp:Outdent /><asp:InsertHorizontalRule /><asp:HorizontalSeparator /><asp:InsertImage />
+                                </Toolbar>
+                            </asp:HtmlEditorExtender>
+                        </EditItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox CssClass="widthTextBox" ID="txtAbout" runat="Server" Text='<%# Eval("aboutus_content") %>'></asp:TextBox>
                         </FooterTemplate>
                     </asp:TemplateField>
                     </Columns>
@@ -621,7 +674,8 @@
                         <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                         <asp:ListItem Text="No" Value="0"></asp:ListItem>
                     </asp:DropDownList>
-                    <asp:AjaxFileUpload OnUploadComplete="UploadComplete" ID="AjaxFileUpload1" MaximumNumberOfFiles="1" runat="server" />
+                    <asp:AjaxFileUpload OnUploadComplete="UploadComplete" ID="AjaxFileUpload1" AllowedFileTypes="css,pdf,png,jpg,jpeg,gif" MaximumNumberOfFiles="1" runat="server" />
+                    <asp:Panel HorizontalAlign="Right" runat="server"><asp:Button runat="server" Text="Insert" OnClick="MaterialInserting" /></asp:Panel>
                 </ContentTemplate>
             </asp:TabPanel>
             <asp:TabPanel ID="TabPanel8" runat="server" HeaderText="Codes">
@@ -683,10 +737,11 @@
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
             ConnectionString="<%$ connectionStrings:ConnectionString %>" 
-            SelectCommand="SELECT [ID], [coursename], [slogan], [show_opinions], [receive_opinions], [startpage_content], [aboutus_content], [active_version], [site_mode] FROM [Settings]"
+            SelectCommand="SELECT [ID], [coursename], [slogan], [show_opinions], [receive_opinions], [active_version], [site_mode] FROM [Settings]"
             UpdateCommand="Update Settings SET coursename=@coursename, slogan=@slogan, show_opinions=@show_opinions, receive_opinions=@receive_opinions,
-                            startpage_content=@startpage_content, aboutus_content=@aboutus_content, active_version=@active_version, site_mode=@site_mode WHERE ID=@ID"
-            DeleteCommand="DELETE FROM Settings WHERE ID=@ID">
+                            active_version=@active_version, site_mode=@site_mode"
+            DeleteCommand="Update Settings SET coursename='', slogan='', show_opinions=0, receive_opinions=0,
+                            active_version=0, site_mode=0">
         </asp:SqlDataSource>
         <asp:SqlDataSource ID="SqlDataSource3" runat="server" 
             ConnectionString="<%$ connectionStrings:ConnectionString %>" 
@@ -747,7 +802,19 @@
             SelectCommand="SELECT [ID], [code], [valid] FROM [Codes]"
             UpdateCommand="Update Codes SET code=@code, valid=@valid WHERE ID=@ID"
             DeleteCommand="DELETE FROM Codes WHERE ID=@ID">
-        </asp:SqlDataSource>   
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource9" runat="server" 
+            ConnectionString="<%$ connectionStrings:ConnectionString %>" 
+            SelectCommand="SELECT [ID], [startpage_content] FROM [Settings]"
+            UpdateCommand="Update Settings SET startpage_content=@startpage_content"
+            DeleteCommand="Update Settings SET startpage_content=''">
+        </asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource10" runat="server" 
+            ConnectionString="<%$ connectionStrings:ConnectionString %>" 
+            SelectCommand="SELECT [ID], [aboutus_content] FROM [Settings]"
+            UpdateCommand="Update Settings SET aboutus_content=@aboutus_content"
+            DeleteCommand="Update Settings SET aboutus_content=''">
+        </asp:SqlDataSource>
     </div>
 </asp:Content>
 

@@ -9,7 +9,7 @@
 <head runat="server">
 
     <title>E-Learning platform</title>
-
+    
     <link rel="stylesheet" href="css/reset.css" type="text/css"/>
     <link rel="stylesheet" href="css/layout.css" type="text/css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
@@ -116,7 +116,7 @@
             </div>
             <div id="slogan"> Web Engineering<span>Welcome to the world of ASP.NET!</span> </div>
 
-            <%header_banners();%>
+            <% header_banners(); %>
 
             <div id="sitepath" class="<%path_apperance();%>">
                 Site path: 
@@ -235,8 +235,10 @@
                                     </asp:ChartArea>
                                 </ChartAreas>
                             </asp:Chart>
-                        </p>
 
+                            <h1>Predicted date of accomplishment: 
+                            <% Prediction(); %> </h1>
+                        </p>
                     </LoggedInTemplate>
                   </asp:LoginView>
 
