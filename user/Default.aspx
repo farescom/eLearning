@@ -49,7 +49,9 @@
                      Section 2
                   </HeaderTemplate>
                   <ContentTemplate>
-                     <div id="Tab_Panel_2" runat="server"/>
+                     <div id="Tab_Panel_2" runat="server">
+                        Please activate your accont to be able to see this section.
+                     </div>
                   </ContentTemplate>
                </asp:TabPanel>
 
@@ -58,7 +60,9 @@
                      Section 3
                   </HeaderTemplate>
                   <ContentTemplate>
-                     <div id="Tab_Panel_3" runat="server"/>
+                     <div id="Tab_Panel_3" runat="server">
+                        Please activate your accont to be able to see this section.
+                     </div>
                   </ContentTemplate>
                </asp:TabPanel>
 
@@ -67,7 +71,9 @@
                      Section 4
                   </HeaderTemplate>
                   <ContentTemplate>
-                     <div id="Tab_Panel_4" runat="server"/>
+                     <div id="Tab_Panel_4" runat="server">
+                        Please activate your accont to be able to see this section.
+                     </div>
                   </ContentTemplate>
                </asp:TabPanel>
 
@@ -76,7 +82,9 @@
                      Section 5
                   </HeaderTemplate>
                   <ContentTemplate>
-                     <div id="Tab_Panel_5" runat="server"/>
+                     <div id="Tab_Panel_5" runat="server">
+                        Please activate your accont to be able to see this section.
+                     </div>
                   </ContentTemplate>
                </asp:TabPanel>
 
@@ -85,7 +93,9 @@
                      Section 6
                   </HeaderTemplate>
                   <ContentTemplate>
-                     <div id="Tab_Panel_6" runat="server"/>
+                     <div id="Tab_Panel_6" runat="server">
+                        Please activate your accont to be able to see this section.
+                     </div>
                   </ContentTemplate>
                </asp:TabPanel>
 

@@ -192,7 +192,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             string[] xValues = new string[2];
             if (doneSections == 0)
             {
-                xValues[0] = "All sections";
+                xValues[0] = "Remained";
             }
             else
             {
@@ -206,9 +206,9 @@ public partial class MasterPage : System.Web.UI.MasterPage
         }
 
     }
+
     protected void Prediction()
     {
-        
         DateTime now;
         MembershipUser mu = Membership.GetUser(HttpContext.Current.User.Identity.Name);
         DateTime date = mu.CreationDate;
