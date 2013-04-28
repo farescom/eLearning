@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
+using System.Web.Security;
 using System.Web.UI.DataVisualization.Charting;
 using OpinionControl;
 using System.Web.Security;
@@ -16,6 +17,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
+
         //Connection to databse
         SqlConnection conn;
         using(conn = new SqlConnection())
@@ -73,9 +75,16 @@ public partial class MasterPage : System.Web.UI.MasterPage
     }
 
     // displays a menu containing only top-level item.
-    public void display_menu()
+    public void display_menu() 
     {
-        Response.Write("<li><a href=\"" + SiteMap.RootNode.Url + "\">" + SiteMap.RootNode.Title + "</a></li>");
+        string[] roleNames = Roles.GetRolesForUser();
+        //Response.Write(roleNames[0]);
+        //  && (roleNames[0] == "User" || roleNames[0] == "Admin")
+
+        if (roleNames.Length != 0)
+            Response.Write("<li><a href=\"/eLearning/user/Default.aspx\" >" + SiteMap.RootNode.Title + "</a></li>");
+        else
+            Response.Write("<li><a href=\"" + SiteMap.RootNode.Url + "\">" + SiteMap.RootNode.Title + "</a></li>");
         int i = 0;
         for (; i < SiteMap.RootNode.ChildNodes.Count - 1; i++)
         {
@@ -100,7 +109,23 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 Response.Write("page2");
         }
         else
-                Response.Write("page2");
+            Response.Write("page2");
+    }
+
+    public void color_class()
+    {
+        if (SiteMap.CurrentNode != null)
+            Response.Write("box1");
+        else
+            Response.Write("box2");
+    }
+
+    public void color_class()
+    {
+        if (SiteMap.CurrentNode != null)
+            Response.Write("box1");
+        else
+            Response.Write("box2");
     }
 
     // decided whether it is a Default (main) page, or another page
@@ -141,6 +166,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 "</ul>");
         }
     }
+
     protected void Chart1_Load(object sender, EventArgs e)
     {
         SqlConnection conn;
@@ -149,7 +175,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
             conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             conn.Open();
-            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections", conn);
+            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections WHERE show=1", conn);
             int sections = (int)command1.ExecuteScalar();
 
             SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
@@ -163,7 +189,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
             }
             else
             {
-                xValues[0] = "All sections";
+                xValues[0] = "Remained";
                 xValues[1] = "Done sections";
             }
             ((Chart)(LoginView1.FindControl("Chart1"))).Series["Default"].Points.DataBindXY(xValues, yValues);
@@ -188,7 +214,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
             conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             conn.Open();
-            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections", conn);
+            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections WHERE show=1", conn);
             sections = (int)command1.ExecuteScalar();
 
             SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
