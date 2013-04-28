@@ -7,11 +7,13 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Diagnostics;
 using System.Web.Security;
+using System.Web.UI.DataVisualization.Charting;
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
         //Connection to databse
         SqlConnection conn;
         using(conn = new SqlConnection())
@@ -26,22 +28,23 @@ public partial class MasterPage : System.Web.UI.MasterPage
             if (count != 0)
             {
                 Random rand = new Random();
-                int randomNumber = rand.Next(0, count);
+                int randomRows;
+                if(count == 1) randomRows = 1;
+                else if(count == 2) randomRows = 2;
+                else randomRows = 3;
 
-                command.CommandText = "SELECT ID FROM Ratings WHERE acceptance = 1";
+                command.CommandText = String.Format("SELECT TOP {0} * FROM Ratings WHERE acceptance = 1 ORDER BY NEWID()", randomRows);
                 SqlDataAdapter da = new SqlDataAdapter(command);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
-                command.CommandText = String.Format("SELECT * FROM Ratings WHERE ID = {0}", dt.Rows[randomNumber][0]);
-                SqlDataReader reader = command.ExecuteReader();
-                reader.Read();
-
-                RandOpinionDesc.InnerText = reader.GetString(4);
-                RandOpinionAuthor.InnerText = reader.GetString(1);
-                reader.Close();
+                for (int i = 0; i < randomRows; i++)
+                {
+                    randomOpinions.InnerHtml += "<div class='RandOpinionDesc'><img style='margin-right: 10px;' src='images/quot1.gif' />" + dt.Rows[i][4] + "<img style='margin-left: 15px;' src='images/quot1.gif' /></div>" +
+                        "<div class='RandOpinionAuthor'>" + dt.Rows[i][1] + "</div>";
+                }
             }
-            else RandOpinionDesc.InnerText = "Brak opini";
+            else randomOpinions.InnerText = "Brak opini";
             
             // -------------------------------------------------------------------------------------------------------
 
@@ -146,5 +149,28 @@ public partial class MasterPage : System.Web.UI.MasterPage
                 "<li><a href=\"contact.aspx\"><img src=\"images/contact.jpg\" alt=\"\"></a></li>" +
                 "</ul>");
         }
+    }
+    protected void Chart1_Load(object sender, EventArgs e)
+    {
+        SqlConnection conn;
+        using (conn = new SqlConnection())
+        {
+
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            conn.Open();
+            SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections", conn);
+            int sections = (int)command1.ExecuteScalar();
+
+            SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
+            int doneSections = (int)command2.ExecuteScalar();
+
+            int[] yValues = { 2, 1};
+            string[] xValues = { "All sections", "Done sections"};
+            ((Chart)(LoginView1.FindControl("Chart1"))).Series["Default"].Points.DataBindXY(xValues, yValues);
+
+            //LoginView1.FindControl("Chart1");.Series["Default"].Points[0].Color = Color.MediumSeaGreen;
+            //LoginView1.FindControl("Chart1");.Series["Default"].Points[1].Color = Color.PaleGreen;
+        }
+
     }
 }

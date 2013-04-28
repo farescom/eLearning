@@ -1,10 +1,12 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+<%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+    Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-
-<head id="Head1" runat="server">
+<head runat="server">
 
     <title>E-Learning platform</title>
 
@@ -26,15 +28,16 @@
 
 <body id="<%header_shape();%>">
 
-<form id="form2" runat="server"> <!-- action="Default.aspx" method="post" -->
 
+<form id="form2" runat="server">
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server" EnablePartialRendering="true"></asp:ToolkitScriptManager>
     <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
-
-
 
     <div class="body1">
         <div class="main">
-        <header>
+        <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) Response.Write("<header>");
+              else Response.Write("<header style='height: 61px;'>");
+                %>
             <div class="wrapper">
 
                 <nav>
@@ -106,6 +109,8 @@
             </LoggedInTemplate>
             </asp:LoginView>
 
+            <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1)
+                 { %>
             <div class="wrapper">
                 <h1><a href="Default.aspx" id="logo">E-Learning platfrom</a></h1>
             </div>
@@ -118,24 +123,32 @@
                 <asp:SiteMapPath ID="SiteMapPath1" runat="server" PathSeparator=" >> " NodeStyle-ForeColor="#0000BB">
                 </asp:SiteMapPath> 
             </div>
+            <% } %>
         </header>
         </div>
     </div>
 
-     <div class="body2">
-      <% if (SiteMap.CurrentNode != null && SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
+    <div class="body2">
+      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
+      <div class="main">
+        
+ <div class="body2">
+      <% if (SiteMap.CurrentNode == null || SiteMap.CurrentNode.Url.IndexOf("Default.aspx") != -1) Response.Write("<br />"); %>
       <div class="main">
         
         <section id="content">
-          <div class="<%color_class();%>">
+           <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) Response.Write("<div class='box1'>");
+              else Response.Write("<div class='box1' style='padding: 0;'>");
+                %>
             <div class="wrapper">
 
-              <!-- left side: the content -->
-              <article class="col1">
+              <!-- left side: the content style='padding: 0;' -->
+              <article class="col1" width="911px">
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
               </article>
 
+              <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("admin/Default.aspx") == -1) { %>
               <!-- right side: the columns with login, user and opinions panels -->
               <article class="col2 pad_left2">
                 <div class="pad_left1">
@@ -196,6 +209,7 @@
 
                         </div>
                     </AnonymousTemplate>
+                    
 
                     <LoggedInTemplate>
                         <div class="box">
@@ -209,8 +223,20 @@
                         <br />
                         <div class="box">
                             <h2>User statistics</h2>
-                            <p>some learning statistics</p>
-                        </div>
+                        <p>
+                            <asp:Chart ID="Chart1" runat="server" 
+                                onload="Chart1_Load" Height="220px" Width="220px">
+                                <Series>
+                                    <asp:Series ChartType="Pie" Name="Default">
+                                    </asp:Series>
+                                </Series>
+                                <ChartAreas>
+                                    <asp:ChartArea Name="ChartArea1">
+                                    </asp:ChartArea>
+                                </ChartAreas>
+                            </asp:Chart>
+                        </p>
+
                     </LoggedInTemplate>
                   </asp:LoginView>
 
@@ -218,14 +244,12 @@
 
                   <div class="box">
                         <h2>User Opinions</h2>
-                        <p id="randomOpinion" runat="server">
-                            <div id="RandOpinionDesc" runat="server"></div>
-                            <div id="RandOpinionAuthor" runat="server"></div>
-                        </p>
+                        <span id="randomOpinions" runat="server"></span>
                   </div>
 
                 </div>  
               </article>
+            <% } %>
             </div>
           </div>
         </section>
