@@ -191,6 +191,34 @@ public partial class _Default : System.Web.UI.Page
                 } // end of if
             } // enf of while
             reader.Close();
+
+            // Aditional materials
+
+            //conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            //conn.Open();
+
+            // Choosing the number o sections
+            command = new SqlCommand("SELECT id, title, file_path, description FROM Materials WHERE show = 1 ORDER BY id", conn);
+            reader = command.ExecuteReader();
+            counter = 0;
+            while (reader.Read())
+            {
+                if (counter == 0) // before the first entity, we have to start the definition of table
+                {
+                    materials.InnerHtml = "<div id=\"additionalmaterial\" class=\"box\">";
+                    materials.InnerHtml += "<h2>Additional materials</h2><table><tr><td></td><td><b>Material</b></td><td><b>Description</b></td></tr>";
+                }
+
+                materials.InnerHtml += "<tr><td>"+(counter+1)+" </td>";
+                materials.InnerHtml += "<td><a href=\"../materials/" + reader["file_path"] + "\">" + reader["title"] + "</a></td>";
+                materials.InnerHtml += "<td><p>" + reader["description"] + "</p></td></tr>";
+
+                counter++;
+            }
+            if (counter != 0) // we added at least one entity
+            {
+                materials.InnerHtml += "</table></div>";
+            }
         }
     }
 }

@@ -52,15 +52,16 @@ public partial class _Default : System.Web.UI.Page
         // Proccessing Birthdate
             char[] dateSeparators = new char[2];
             dateSeparators[0] = '/';
-            dateSeparators[1] = '-';
+            dateSeparators[1] = '/';
             string[] dateArray = Birthdate.Split(dateSeparators);
             DateTime dt = new DateTime(Convert.ToInt32(dateArray[2]), Convert.ToInt32(dateArray[1]), Convert.ToInt32(dateArray[0]));
 
         // Proccessing UserId
-            string sqlStr = "SELECT TOP 1 UserId FROM aspnet_Users WHERE UserName = '" + UserName2 + "' ORDER BY LastActivityDate DESC";
+            string sqlStr = "SELECT TOP 1 UserId FROM aspnet_Users WHERE UserName = @id ORDER BY LastActivityDate DESC";
             // we will get the user with this login that was created last time.
             con.Open();
             SqlCommand sqlCmd = new SqlCommand(sqlStr, con);
+            sqlCmd.Parameters.AddWithValue("@id", UserName2);
             Guid result = (Guid)sqlCmd.ExecuteScalar();
             UserId = result.ToString();
 
@@ -73,8 +74,9 @@ public partial class _Default : System.Web.UI.Page
             if (o != null)
             {
                 code_id = (int)o;
-                sqlStr = "SELECT valid FROM Codes where id = " + code_id;
+                sqlStr = "SELECT valid FROM Codes where id = @code";
                 sqlCmd = new SqlCommand(sqlStr, con);
+                sqlCmd.Parameters.AddWithValue("@code", code_id);
                 byte valid = (byte)sqlCmd.ExecuteScalar();
                 if (valid == 0)
                 {

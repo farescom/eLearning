@@ -8,30 +8,10 @@
     <script type="text/javascript" src="../js/cufon-replace.js"></script>
     <script type="text/javascript" src="../js/Molengo_400.font.js"></script>
     <script type="text/javascript" src="../js/Expletus_Sans_400.font.js"></script> 
-    <script type="text/javascript">
-        var seasonalSports = new Array("None selected",
-                                 "Tennis",
-                                 "Volleyball",
-                                 "Baseball",
-                                 "Skiing");
-
-        function DisplaySport(x)
-        {
-            var a = document.getElementById("answers_1_a");
-            var answer_a = a.options[e.selectedIndex].value;
-            var answer_b = a.options[e.selectedIndex].text;
-
-            var c = document.getElementById("answers_1_c");
-            c.appendChild("hi");
-            
-            //document.getElementById("").innerHTML = seasonalSports[x];
-        }
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <div class="pad_left1">
-
          <div id = "sections" style="text-align: left"> 
          
             <asp:TabContainer ID="TabContainer1" runat="server" ActiveTabIndex="0" TabStripPlacement="Top" Width="600">
@@ -101,5 +81,7 @@
 
             </asp:TabContainer>
          </div>
+         <br />
+         <div id="materials" runat="server" />   <!-- this id done from code behind -->
     </div>
 </asp:Content>
