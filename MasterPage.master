@@ -113,7 +113,7 @@
             <div class="wrapper">
                 <h1><a href="Default.aspx" id="logo">E-Learning platfrom</a></h1>
             </div>
-            <div id="slogan"> Web Engineering<span>Welcome to the world of ASP.NET!</span> </div>
+            <div id="slogan"> <% show_coursename(); %><span><% show_slogan(); %></span> </div>
 
             <% header_banners(); %>
 
@@ -137,7 +137,7 @@
             <div class="wrapper">
 
               <!-- left side: the content style='padding: 0;' -->
-              <article class="col1" width="911px">
+              <article class="col1" width="980px">
                 <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
               </article>

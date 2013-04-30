@@ -162,7 +162,7 @@ public partial class _Default : System.Web.UI.Page
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Question1")).Text = dt2.Rows[0][1].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("FirstName1")).Text = dt.Rows[0][1].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Surname1")).Text = dt.Rows[0][2].ToString();
-            ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Birthdate1")).Text = dt.Rows[0][4].ToString().Substring(0, 10);
+            ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Birthdate1")).Text = dt.Rows[0][4].Equals("") ? dt.Rows[0][4].ToString() : ToString().Substring(0, 10);
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Country1")).Text = dt.Rows[0][5].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("City1")).Text = dt.Rows[0][6].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("PostCode1")).Text = dt.Rows[0][7].ToString();

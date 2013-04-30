@@ -33,4 +33,22 @@ public partial class _Default : System.Web.UI.Page
             }
         }
     }
+
+    protected void show_startpage()
+    {
+        //Connection to databse
+        SqlConnection conn;
+        using (conn = new SqlConnection())
+        {
+            conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            conn.Open();
+
+            // Random opinion ----------------------------------------------------------------------------------------
+            SqlCommand command = new SqlCommand("SELECT startpage_content FROM Settings", conn);
+            String startpage = (String)command.ExecuteScalar();
+
+            Response.Write(HttpUtility.HtmlDecode(startpage));
+
+        }
+    }
 }
