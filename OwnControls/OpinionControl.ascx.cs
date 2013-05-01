@@ -18,19 +18,21 @@ public partial class OwnControls_OpinionControl : System.Web.UI.UserControl
 
     public OwnControls_OpinionControl() { }
 
-    public OwnControls_OpinionControl(string opinion, string user, string rat)
+    public OwnControls_OpinionControl(string opinion, string user, string rat, string isUser)
         {
             Panel OpinionPanel = new Panel();
             Panel UserPanel = new Panel();
 
             OpinionPanel.CssClass = "RandOpinionDesc";
             quotation = new Image();
-            quotation.ImageUrl = "../images/quot1.gif";
+            if(isUser.Equals("-1")) quotation.ImageUrl = "images/quot1.gif";
+            else quotation.ImageUrl = "../images/quot1.gif";
             quotation.Attributes.Add("style", "margin-right: 10px;");
             OpinionPanel.Controls.Add(quotation);
             OpinionPanel.Controls.Add(new LiteralControl(opinion));
             quotation = new Image();
-            quotation.ImageUrl = "../images/quot1.gif";
+            if (isUser.Equals("-1")) quotation.ImageUrl = "images/quot1.gif";
+            else quotation.ImageUrl = "../images/quot1.gif";
             quotation.Attributes.Add("style", "margin-left: 15px;");
             OpinionPanel.Controls.Add(quotation);
             UserPanel.CssClass = "RandOpinionAuthor";

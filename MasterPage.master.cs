@@ -55,7 +55,7 @@ public partial class MasterPage : System.Web.UI.MasterPage
 
                     for (int i = 0; i < randomRows; i++)
                     {
-                        OwnControls_OpinionControl opinion = new OwnControls_OpinionControl(dt.Rows[i][4].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][3].ToString());
+                        OwnControls_OpinionControl opinion = new OwnControls_OpinionControl(dt.Rows[i][4].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][3].ToString(), HttpContext.Current.Request.Url.AbsolutePath.IndexOf("user").ToString());
                         randomOpinions.Controls.Add(opinion);
                     }
                 }
