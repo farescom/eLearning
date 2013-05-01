@@ -684,3 +684,14 @@ footer a:hover {
 {
     margin-bottom: 20px;
 }
+
+#additionalmaterial table
+{
+    width: 100%;
+    background: white;
+}
+
+#additionalmaterial table td
+{
+    padding: 5px
+}

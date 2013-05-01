@@ -96,6 +96,7 @@
                                     <asp:RequiredFieldValidator ID="EmailRequired" runat="server" 
                                         ControlToValidate="Email" ErrorMessage="Email address is required" 
                                         ToolTip="Email address is required" ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" TargetControlID="Email"  FilterType="UppercaseLetters, LowercaseLetters, Numbers, Custom" ValidChars="@" runat="server"/>
                                 </td>
                             </tr>
                             <tr>
@@ -150,7 +151,8 @@
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
                                         ControlToValidate="FirstName" ErrorMessage="Firstname is required" 
                                         ToolTip="Firstname is required" 
-                                        ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                        ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator> 
+                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" TargetControlID="FirstName"  FilterType="UppercaseLetters, LowercaseLetters, Custom" ValidChars=" " runat="server"/>
                                 </td>
                             </tr>
                             <tr>
@@ -163,6 +165,7 @@
                                         ControlToValidate="Surname" ErrorMessage="Surname is required" 
                                         ToolTip="Surname is required" 
                                         ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" TargetControlID="Surname"  FilterType="UppercaseLetters, LowercaseLetters, Custom" ValidChars=" " runat="server"/>
                                 </td>
                             </tr>
                             <tr>
@@ -186,6 +189,7 @@
                                         ControlToValidate="Birthdate" ErrorMessage="Birth date is required" 
                                         ToolTip="Birth date is required" 
                                         ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                    <asp:CalendarExtender TargetControlID="Birthdate" ID="CalendarExtender1" runat="server" FirstDayOfWeek="Monday" Format="dd/MM/yyyy" DaysModeTitleFormat="MMMM, yyyy"></asp:CalendarExtender>
                                 </td>
                             </tr>
                             <tr>
@@ -204,6 +208,7 @@
                                         ControlToValidate="Birthdate" ErrorMessage="Country is required" 
                                         ToolTip="Country is required" 
                                         ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender4" TargetControlID="Country"  FilterType="UppercaseLetters, LowercaseLetters" runat="server"/>
                                 </td>
                             </tr>
                             <tr>
@@ -216,6 +221,7 @@
                                         ControlToValidate="Birthdate" ErrorMessage="City is required" 
                                         ToolTip="City is required" 
                                         ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender5" TargetControlID="City"  FilterType="UppercaseLetters, LowercaseLetters" runat="server"/>
                                 </td>
                             </tr>
                             <tr>
@@ -228,6 +234,7 @@
                                         ControlToValidate="PostCode" ErrorMessage="Postal Code is required" 
                                         ToolTip="Postal Code is required" 
                                         ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender6" TargetControlID="PostCode"  FilterType="Numbers, Custom" ValidChars=" -" runat="server"/>
                                 </td>
                             </tr>
                                 <tr>
@@ -240,6 +247,7 @@
                                         ControlToValidate="Birthdate" ErrorMessage="Address is required" 
                                         ToolTip="Address is required" 
                                         ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender7" TargetControlID="Address" FilterType="UppercaseLetters, LowercaseLetters, Numbers, Custom" ValidChars=" -." runat="server"/>
                                 </td>
                             </tr>
                             <tr>
@@ -276,6 +284,7 @@
                                 </td>
                                 <td>
                                     <asp:TextBox ID="Code" runat="server"></asp:TextBox>
+                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender8" TargetControlID="Code" FilterType="UppercaseLetters, LowercaseLetters, Numbers, Custom" ValidChars="-" runat="server"/>
                                 </td>
                             </tr>
                             <tr>
