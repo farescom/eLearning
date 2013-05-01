@@ -12,11 +12,13 @@
     <link rel="stylesheet" href="css/reset.css" type="text/css"/>
     <link rel="stylesheet" href="css/layout.css" type="text/css"/>
     <link rel="stylesheet" href="css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="css/ratingStar.css" type="text/css"/>
+    <link rel="stylesheet" href="css/addOpinion.css" type="text/css"/>
     <script type="text/javascript" src="js/jquery-1.5.2.js" ></script>
     <script type="text/javascript" src="js/cufon-yui.js"></script>
     <script type="text/javascript" src="js/cufon-replace.js"></script>
     <script type="text/javascript" src="js/Molengo_400.font.js"></script>
-    <script type="text/javascript" src="js/Expletus_Sans_400.font.js"></script> 
+    <script type="text/javascript" src="js/Expletus_Sans_400.font.js"></script>
      
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
@@ -246,9 +248,29 @@
 
                   <br />
 
-                  <div class="box">
+                  <div id="OpinionBox" class="box" style="display: none;" runat="server">
                         <h2>User Opinions</h2>
+                        <asp:OpinionControl ID="Opinion" runat="server" />
                         <span id="randomOpinions" runat="server"></span>
+                        <a ID="LinkButton1" style="margin-bottom: 20px; cursor: pointer; display: none;" runat="server">Add own opinion</a>
+
+                        <asp:ModalPopupExtender ID="mpext" runat="server" TargetControlID="LinkButton1" PopupControlID="Panel1"
+                            cancelcontrolid="btnCancel" backgroundcssclass="ModalPopupBG">
+                        </asp:ModalPopupExtender>
+
+                        <div class="popupConfirmation" id="Panel1" style="display: none;">
+                            <% if (HttpContext.Current.Request.Url.AbsolutePath.IndexOf("user") == -1)
+                               { %>
+                               <iframe id="Iframe1" src="LoginInfo.aspx" width="650px" height="400px" frameborder="0"></iframe>
+                            <% }
+                               else
+                               { %>
+                                <iframe id="frame" src="AddOpinion.aspx" width="650px" height="400px" frameborder="0"></iframe>
+                            <% } %>
+                            <div class="popup_Buttons" style="display: none;">
+                                <input id="btnCancel" type="button" value="Cancel" />
+                            </div>
+                        </div>
                   </div>
 
                 </div>  

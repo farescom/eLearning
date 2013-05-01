@@ -12,20 +12,21 @@
     <div>
         <div  class="wrapper"> <strong>Name:</strong>
         <div class="bg">
-            <input class="white-blue" type="text" class="input" >
+            <input id="name" runat="server" class="white-blue input" type="text" />
         </div>
         </div>
         <div  class="wrapper"> <strong>Email:</strong>
         <div class="bg">
-            <input class="white-blue" type="text" class="input" >
+            <input id="email" runat="server" class="white-blue input" type="text" />
         </div>
         </div>
         <div  class="textarea_box"> <strong>Message:</strong>
         <div class="bg">
-            <textarea class="white-blue" name="textarea" cols="72" rows="10"></textarea>
+            <textarea id="message" runat="server" class="white-blue" name="textarea" cols="72" rows="10"></textarea>
         </div>
         </div>
-        <a href="#" class="button"><span><span>Send</span></span></a>
+        <asp:Button id="Send" Width="70px" runat="server" onclick="SendMail" href="#" class="button" Text="Send" />
+        <%--<a ><span><span>Send</span></span></a>--%>
         <a href="contact.aspx" class="button"><span><span>Clear</span></span></a>
     </div>
     </form>

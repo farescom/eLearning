@@ -161,7 +161,7 @@
                     CellPadding="0" ForeColor="Black" GridLines="Vertical" SkinID="RecordList" Width="100%"
                     ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="SettingsUpdating">
                     <Columns>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Coursename" HeaderStyle-Width="25%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Coursename" HeaderStyle-Width="20%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                         <ItemTemplate>
                             <%# Eval("coursename") %>
                         </ItemTemplate>
@@ -172,7 +172,7 @@
                             <asp:TextBox CssClass="widthTextBox" ID="txtCoursename" runat="Server"></asp:TextBox>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Slogan" HeaderStyle-Width="25%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Slogan" HeaderStyle-Width="30%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                         <ItemTemplate>
                             <%# Eval("slogan") %>
                         </ItemTemplate>
@@ -183,7 +183,7 @@
                             <asp:TextBox CssClass="widthTextBox" ID="txtSlogan" runat="Server"></asp:TextBox>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Show opinions" HeaderStyle-Width="6%" FooterStyle-Width="100%" ControlStyle-Width="100%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Show opinions" HeaderStyle-Width="10%" FooterStyle-Width="100%" ControlStyle-Width="100%">
                         <ItemTemplate>
                             <%# Eval("show_opinions").ToString().ToLower().Equals("1") ? "Yes" : "No" %>
                         </ItemTemplate>
@@ -200,7 +200,7 @@
                             </asp:DropDownList>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Receive opinions" HeaderStyle-Width="6%" FooterStyle-Width="100%" ControlStyle-Width="100%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Receive opinions" HeaderStyle-Width="10%" FooterStyle-Width="100%" ControlStyle-Width="100%">
                         <ItemTemplate>
                             <%# Eval("receive_opinions").ToString().ToLower().Equals("1") ? "Yes" : "No" %>
                         </ItemTemplate>
@@ -217,7 +217,7 @@
                             </asp:DropDownList>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField HeaderStyle-Width="9%" FooterStyle-Width="80%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center"  HeaderText="Active Ver.">
+                    <asp:TemplateField HeaderStyle-Width="9%" FooterStyle-Width="30%" ControlStyle-Width="80%" ItemStyle-HorizontalAlign="Center"  HeaderText="Active Ver.">
                         <ItemTemplate>
                             <%# Eval("active_version")%>
                         </ItemTemplate>
@@ -228,7 +228,7 @@
                             <asp:TextBox CssClass="widthTextBox" ID="txtActive" runat="Server" Text='<%# Eval("active_version") %>'></asp:TextBox>
                         </FooterTemplate>
                     </asp:TemplateField>
-                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Receive opinions" HeaderStyle-Width="15%" FooterStyle-Width="100%" ControlStyle-Width="100%">
+                    <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Site mode" HeaderStyle-Width="10%" FooterStyle-Width="100%" ControlStyle-Width="100%">
                         <ItemTemplate>
                             <%# Eval("site_mode").ToString().ToLower().Equals("1") ? "Opened" : "Closed"%>
                         </ItemTemplate>
@@ -463,7 +463,7 @@
                                     </asp:DropDownList>
                                 </FooterTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="5%" FooterStyle-Width="60%" ControlStyle-Width="100%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="55%" FooterStyle-Width="60%" ControlStyle-Width="100%">
                                 <ItemTemplate>
                                     <%# Eval("description") %>
                                 </ItemTemplate>
@@ -634,13 +634,13 @@
                             </asp:TemplateField>
                             <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="File Path" HeaderStyle-Width="30%" FooterStyle-Width="30%" ControlStyle-Width="80%">
                                 <ItemTemplate>
-                                    <%# Eval("file_path") %>
+                                    <%# Eval("file_path").ToString().Substring(0, 35)+"..." %>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtPath" runat="Server" Text='<%# Eval("file_path") %>'></asp:TextBox>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="70%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="40%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                                 <ItemTemplate>
                                     <%# Eval("description") %>
                                 </ItemTemplate>
