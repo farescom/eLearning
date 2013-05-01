@@ -50,10 +50,13 @@ public partial class _Default : System.Web.UI.Page
             String NewPassword = ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("NewPassword")).Text;
             String ConfirmNewPassword = ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("ConfirmNewPassword")).Text;
             String Sex = ((DropDownList)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Sex")).SelectedItem.Text;
-            String LearningMode = ((DropDownList)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("LearningMode")).SelectedItem.Text;
+            String LearningMode = ((DropDownList)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl
+("LearningMode")).SelectedItem.Text;
+            String Code = ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Code")).Text;
+            if (Code == "") Code = ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Code1")).Text;
             int Sex_number = 0;
             int LearningMode_number = 0;
-            int code_id = 0;
+            int CodeId = 0;
             String role = "Registered";
             String UserId;
 
@@ -80,12 +83,25 @@ public partial class _Default : System.Web.UI.Page
             Guid result = (Guid)sqlCmd.ExecuteScalar();
             UserId = result.ToString();
 
+            // Processing CodeId
+            sqlStr = "SELECT id FROM Codes WHERE code = '" + Code + "' AND valid = 1";
+            sqlCmd.CommandText = sqlStr;
+            try
+            {
+                CodeId = (int)sqlCmd.ExecuteScalar();
+            }
+            catch (NullReferenceException exp)
+            {
+                CodeId = 0;
+            }
+
             // The SQL statement to insert user data. By using prepared statements, we automatically get some protection against SQL injection.
             sqlStr = "UPDATE users SET firstname = @firstname, surname = @surname, sex = @sex, birthday = @birthday, country = @country, " +
-                                "city = @city, postcode = @postcode, address = @address, jump_posibility = @jump_posibility WHERE id = @id";
+                                "city = @city, postcode = @postcode, address = @address, jump_posibility = @jump_posibility, code_id = @code " +
+                                "WHERE id = @id";
 
             // Create an executable SQL command containing our SQL statement and the database connection
-            sqlCmd = new SqlCommand(sqlStr, con);
+            sqlCmd.CommandText = sqlStr;
 
             // Fill in the parameters in our prepared SQL statement
             sqlCmd.Parameters.AddWithValue("@firstname", FirstName);
@@ -97,10 +113,18 @@ public partial class _Default : System.Web.UI.Page
             sqlCmd.Parameters.AddWithValue("@postcode", PostCode);
             sqlCmd.Parameters.AddWithValue("@address", Address);
             sqlCmd.Parameters.AddWithValue("@jump_posibility", LearningMode_number);
+            sqlCmd.Parameters.AddWithValue("@code", CodeId);
             sqlCmd.Parameters.AddWithValue("@id", UserId);
 
             // Execute the SQL command
             sqlCmd.ExecuteNonQuery();
+
+            if (CodeId != 0)
+            {
+                sqlStr = "UPDATE Codes SET valid = 0 WHERE id = @code";
+                sqlCmd.CommandText = sqlStr;
+                sqlCmd.ExecuteNonQuery();
+            }
 
             // Changing password and answer question
             MembershipUser mu = Membership.GetUser(HttpContext.Current.User.Identity.Name);
@@ -162,7 +186,7 @@ public partial class _Default : System.Web.UI.Page
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Question1")).Text = dt2.Rows[0][1].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("FirstName1")).Text = dt.Rows[0][1].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Surname1")).Text = dt.Rows[0][2].ToString();
-            ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Birthdate1")).Text = dt.Rows[0][4].Equals("") ? dt.Rows[0][4].ToString() : ToString().Substring(0, 10);
+            ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Birthdate1")).Text = dt.Rows[0][4].ToString().Substring(0, 10);
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Country1")).Text = dt.Rows[0][5].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("City1")).Text = dt.Rows[0][6].ToString();
             ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("PostCode1")).Text = dt.Rows[0][7].ToString();
@@ -174,6 +198,9 @@ public partial class _Default : System.Web.UI.Page
             else LearningMode = "Free";
             ((DropDownList)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("LearningMode")).SelectedItem.Text = LearningMode;
 
+            sqlCmd.CommandText = "SELECT code FROM Codes WHERE id = @codeId";
+            sqlCmd.Parameters.AddWithValue("@codeId", dt.Rows[0][10].ToString());
+            ((TextBox)CreateUserWizard2.CreateUserStep.ContentTemplateContainer.FindControl("Code1")).Text = (String)sqlCmd.ExecuteScalar();
         }
     }
 }

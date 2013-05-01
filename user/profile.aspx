@@ -269,7 +269,10 @@
                                     <asp:Label ID="CodeLabel" runat="server" AssociatedControlID="Code">Activation code:</asp:Label>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="Code" disabled="disabled" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="Code1" disabled="disabled" runat="server"></asp:TextBox>
+                                </td>
+                                <td>
+                                    <asp:TextBox ID="Code" runat="server"></asp:TextBox>
                                 </td>
                             </tr>
                             <tr>

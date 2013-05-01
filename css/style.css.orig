@@ -683,4 +683,18 @@ footer a:hover {
 .RandOpinionAuthor:last-child
 {
     margin-bottom: 20px;
+<<<<<<< HEAD
+=======
+}
+
+#additionalmaterial table
+{
+    width: 100%;
+    background: white;
+}
+
+#additionalmaterial table td
+{
+    padding: 5px
+>>>>>>> 0b5f07a6310e8774be726c31533bb9327321cb71
 }

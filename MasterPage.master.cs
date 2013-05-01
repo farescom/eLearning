@@ -9,8 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Web.Security;
 using System.Web.UI.DataVisualization.Charting;
-using OpinionControl;
-using System.Web.Security;
+
 
 public partial class MasterPage : System.Web.UI.MasterPage
 {
@@ -25,31 +24,43 @@ public partial class MasterPage : System.Web.UI.MasterPage
             conn.ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
             conn.Open();
 
-            // Random opinion ----------------------------------------------------------------------------------------
-            SqlCommand command = new SqlCommand("SELECT count(*) FROM Ratings WHERE acceptance = 1", conn);
-            int count = (int)command.ExecuteScalar();
+            // Receive opinions ----------------------------------------------------------------------------------------
+            SqlCommand command = new SqlCommand("SELECT receive_opinions FROM Settings", conn);
+            byte receive = (byte)command.ExecuteScalar();
+            if (receive == 1) LinkButton1.Attributes.Add("style", "display: block; cursor: pointer;");
 
-            if (count != 0)
+            // Show opinions ----------------------------------------------------------------------------------------
+            command.CommandText = "SELECT show_opinions FROM Settings";
+            byte show = (byte)command.ExecuteScalar();
+
+            if (show == 1)
             {
-                Random rand = new Random();
-                int randomRows;
-                if(count == 1) randomRows = 1;
-                else if(count == 2) randomRows = 2;
-                else randomRows = 3;
+                OpinionBox.Attributes.Add("style", "display: block;");
+                // Random opinions ----------------------------------------------------------------------------------------
+                command.CommandText = "SELECT count(*) FROM Ratings WHERE acceptance = 1";
+                int count = (int)command.ExecuteScalar();
 
-                command.CommandText = String.Format("SELECT TOP {0} * FROM Ratings WHERE acceptance = 1 ORDER BY NEWID()", randomRows);
-                SqlDataAdapter da = new SqlDataAdapter(command);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-
-                for (int i = 0; i < randomRows; i++)
+                if (count != 0)
                 {
-                    Opinion opinion = new Opinion(dt.Rows[i][4].ToString(), dt.Rows[i][1].ToString());
-                    randomOpinions.Controls.Add(opinion);
-                }
-            }
-            else randomOpinions.InnerText = "Brak opini";
+                    Random rand = new Random();
+                    int randomRows;
+                    if (count == 1) randomRows = 1;
+                    else if (count == 2) randomRows = 2;
+                    else randomRows = 3;
 
+                    command.CommandText = String.Format("SELECT TOP {0} * FROM Ratings WHERE acceptance = 1 ORDER BY NEWID()", randomRows);
+                    SqlDataAdapter da = new SqlDataAdapter(command);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    for (int i = 0; i < randomRows; i++)
+                    {
+                        OwnControls_OpinionControl opinion = new OwnControls_OpinionControl(dt.Rows[i][4].ToString(), dt.Rows[i][1].ToString(), dt.Rows[i][3].ToString(), HttpContext.Current.Request.Url.AbsolutePath.IndexOf("user").ToString());
+                        randomOpinions.Controls.Add(opinion);
+                    }
+                }
+                else randomOpinions.InnerText = "Lack of opinions";
+            }
         }
     }
 
