@@ -73,6 +73,9 @@
                                         ControlToValidate="Password" ErrorMessage="Password is required" 
                                         ToolTip="Password is required" ValidationGroup="CreateUserWizard2">*</asp:RequiredFieldValidator>
                                 </td>
+                                <td style="color: red;">
+                                    is always required!
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -272,7 +275,14 @@
                                     <asp:TextBox ID="Code1" disabled="disabled" runat="server"></asp:TextBox>
                                 </td>
                                 <td>
-                                    <asp:TextBox ID="Code" runat="server"></asp:TextBox>
+                                    <% if (!Roles.GetRolesForUser().Contains("Active"))
+                                       { %>
+                                            <asp:TextBox ID="Code" runat="server"></asp:TextBox> 
+                                       <% }
+                                       else
+                                       { %>
+                                            you are active user
+                                        <% } %>
                                 </td>
                             </tr>
                             <tr>

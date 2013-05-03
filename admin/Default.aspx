@@ -624,7 +624,7 @@
                     ShowFooter="False" AutoGenerateEditButton="true" DataKeyNames="ID" EnableViewState="True" OnRowUpdating="MaterialsUpdating"> 
                         <Columns>
                             <asp:CommandField ShowDeleteButton="True" />
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Title" HeaderStyle-Width="10%" FooterStyle-Width="10%" ControlStyle-Width="80%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Title" HeaderStyle-Width="15%" FooterStyle-Width="10%" ControlStyle-Width="80%">
                                 <ItemTemplate>
                                     <%# Eval("title") %>
                                 </ItemTemplate>
@@ -632,15 +632,15 @@
                                     <asp:TextBox ID="txtTitle" runat="Server" Text='<%# Eval("title") %>'></asp:TextBox>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="File Path" HeaderStyle-Width="30%" FooterStyle-Width="30%" ControlStyle-Width="80%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="File Path" HeaderStyle-Width="15%" FooterStyle-Width="30%" ControlStyle-Width="80%">
                                 <ItemTemplate>
-                                    <%# Eval("file_path").ToString().Substring(0, 35)+"..." %>
+                                    <%# Eval("file_path") %>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="txtPath" runat="Server" Text='<%# Eval("file_path") %>'></asp:TextBox>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="40%" FooterStyle-Width="80%" ControlStyle-Width="80%">
+                            <asp:TemplateField ItemStyle-HorizontalAlign="Center"  HeaderText="Description" HeaderStyle-Width="50%" FooterStyle-Width="80%" ControlStyle-Width="80%">
                                 <ItemTemplate>
                                     <%# Eval("description") %>
                                 </ItemTemplate>
@@ -669,7 +669,8 @@
                     </asp:GridView>
                     
                     <h3>Add material</h3>
-                    Description: <asp:TextBox Columns="70" Rows="3" ID="txtDescMaterial" runat="Server"></asp:TextBox><br />
+                    Title: <asp:TextBox Columns="30" Rows="3" BackColor="#F7F7DE" ID="txtTitle" runat="Server"></asp:TextBox><br />
+                    Description: <asp:TextBox Columns="70" Rows="3" BackColor="#F7F7DE" ID="txtDescMaterial" runat="Server"></asp:TextBox><br />
                     Show: <asp:DropDownList ID="dropShowMaterial" runat="server">
                         <asp:ListItem Text="Yes" Value="1"></asp:ListItem>
                         <asp:ListItem Text="No" Value="0"></asp:ListItem>

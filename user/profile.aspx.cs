@@ -89,6 +89,7 @@ public partial class _Default : System.Web.UI.Page
             try
             {
                 CodeId = (int)sqlCmd.ExecuteScalar();
+                Roles.AddUserToRole(HttpContext.Current.User.Identity.Name, "Active");
             }
             catch (NullReferenceException exp)
             {
