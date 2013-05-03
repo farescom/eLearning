@@ -183,8 +183,8 @@ public partial class _Default : System.Web.UI.Page
 
     protected void MaterialInserting(object sender, EventArgs e)
     {
-        SqlDataSource6.InsertParameters["title"].DefaultValue = (String)Session["fileName"];
-        SqlDataSource6.InsertParameters["file_path"].DefaultValue = (String)Session["filePath"];
+        SqlDataSource6.InsertParameters["title"].DefaultValue = txtTitle.Text;
+        SqlDataSource6.InsertParameters["file_path"].DefaultValue = (String)Session["fileName"];
         SqlDataSource6.InsertParameters["description"].DefaultValue = txtDescMaterial.Text;
         SqlDataSource6.InsertParameters["show"].DefaultValue = dropShowMaterial.SelectedValue;
         SqlDataSource6.Insert();

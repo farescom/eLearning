@@ -215,7 +215,7 @@
                             Hello <asp:LoginName ID="LoginName2" runat="server"></asp:LoginName>
                             <br />
                             <br />
-                            - <a id="profil" href="profile.aspx">Your profile</a>
+                            - <asp:LinkButton ID="profil" Text="Your profile" PostBackUrl="~/user/profile.aspx" ForeColor="Black" runat="server" />
                             <br />
                             - <asp:LoginStatus ID="LoginStatus1" runat="server" LogoutPageUrl="~/Default.aspx" LogoutAction="Redirect"></asp:LoginStatus>
                             
