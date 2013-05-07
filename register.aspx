@@ -35,7 +35,7 @@
             AnswerRequiredErrorMessage="Secret question answer is required" 
             ConfirmPasswordCompareErrorMessage="Password and password confirmation should be the same." 
             ConfirmPasswordRequiredErrorMessage="Password confirmation is required" 
-            ContinueDestinationPageUrl="~/about.aspx" Width="386px">
+            ContinueDestinationPageUrl="~/user/Default.aspx" Width="386px">
             <ContinueButtonStyle BackColor="#FFFBFF" BorderColor="#CCCCCC" 
                 BorderStyle="Solid" BorderWidth="1px" Font-Names="Verdana" 
                 ForeColor="#284775" />

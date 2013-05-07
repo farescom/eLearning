@@ -194,7 +194,8 @@ public partial class MasterPage : System.Web.UI.MasterPage
             SqlCommand command1 = new SqlCommand("SELECT count(*) FROM Sections WHERE show=1", conn);
             int sections = (int)command1.ExecuteScalar();
 
-            SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections", conn);
+            string UserId = Membership.GetUser().ProviderUserKey.ToString();
+            SqlCommand command2 = new SqlCommand("SELECT count(*) FROM Done_sections WHERE userid = '" + UserId+"'", conn);
             int doneSections = (int)command2.ExecuteScalar();
 
             int[] yValues = { (sections - doneSections), doneSections };
