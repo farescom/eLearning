@@ -84,17 +84,18 @@ public partial class _Default : System.Web.UI.Page
             UserId = result.ToString();
 
             // Processing CodeId
-            sqlStr = "SELECT id FROM Codes WHERE code = '" + Code + "' AND valid = 1";
+            sqlStr = "SELECT id FROM Codes WHERE code = '" + Code + "' AND valid = 1 AND code = 'XXXX-XXXX'";
             sqlCmd.CommandText = sqlStr;
             try
             {
                 CodeId = (int)sqlCmd.ExecuteScalar();
-                Roles.AddUserToRole(HttpContext.Current.User.Identity.Name, "Active");
             }
             catch (NullReferenceException exp)
             {
                 CodeId = 0;
             }
+
+            if (CodeId != 0) Roles.AddUserToRole(HttpContext.Current.User.Identity.Name, "Active");
 
             // The SQL statement to insert user data. By using prepared statements, we automatically get some protection against SQL injection.
             sqlStr = "UPDATE users SET firstname = @firstname, surname = @surname, sex = @sex, birthday = @birthday, country = @country, " +
