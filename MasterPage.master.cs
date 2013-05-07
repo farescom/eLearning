@@ -104,8 +104,6 @@ public partial class MasterPage : System.Web.UI.MasterPage
     public void display_menu() 
     {
         string[] roleNames = Roles.GetRolesForUser();
-        //Response.Write(roleNames[0]);
-        //  && (roleNames[0] == "User" || roleNames[0] == "Admin")
 
         if (roleNames.Length != 0)
             Response.Write("<li><a href=\"/eLearning/user/Default.aspx\" >" + SiteMap.RootNode.Title + "</a></li>");
