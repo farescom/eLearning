@@ -84,7 +84,7 @@ public partial class _Default : System.Web.UI.Page
             UserId = result.ToString();
 
             // Processing CodeId
-            sqlStr = "SELECT id FROM Codes WHERE code = '" + Code + "' AND valid = 1 AND code = 'XXXX-XXXX'";
+            sqlStr = "SELECT id FROM Codes WHERE code = '" + Code + "' AND valid = 1 AND code != 'XXXX-XXXX'";
             sqlCmd.CommandText = sqlStr;
             try
             {
