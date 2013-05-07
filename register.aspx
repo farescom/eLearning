@@ -96,7 +96,7 @@
                                     <asp:RequiredFieldValidator ID="EmailRequired" runat="server" 
                                         ControlToValidate="Email" ErrorMessage="Email address is required" 
                                         ToolTip="Email address is required" ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
-                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" TargetControlID="Email"  FilterType="UppercaseLetters, LowercaseLetters, Numbers, Custom" ValidChars="@" runat="server"/>
+                                    <asp:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" TargetControlID="Email"  FilterType="UppercaseLetters, LowercaseLetters, Numbers, Custom" ValidChars="@_-." runat="server"/>
                                 </td>
                             </tr>
                             <tr>
