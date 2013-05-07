@@ -8,9 +8,8 @@
 
     <h2>Contact Us</h2>
 
-    <form id="ContactForm" action="#">
     <div>
-        <div  class="wrapper"> <strong>Name:</strong>
+        <div  class="wrapper"> <strong>Title:</strong>
         <div class="bg">
             <input id="name" runat="server" class="white-blue input" type="text" />
         </div>
@@ -25,11 +24,10 @@
             <textarea id="message" runat="server" class="white-blue" name="textarea" cols="72" rows="10"></textarea>
         </div>
         </div>
-        <asp:Button id="Send" Width="70px" runat="server" onclick="SendMail" href="#" class="button" Text="Send" />
+        <asp:Button id="Send" Width="70px" runat="server" onclick="SendMail" class="button" Text="Send" />
         <%--<a ><span><span>Send</span></span></a>--%>
-        <a href="contact.aspx" class="button"><span><span>Clear</span></span></a>
+        <a id="Clear" href="contact.aspx" class="button"><span><span>Clear</span></span></a>
     </div>
-    </form>
 
 </div>
 </asp:Content>
